@@ -22,7 +22,7 @@ html, body {
 // Utility classes following BEM methodology
 .container {
   width: 100%;
-  max-width: map-get($container-max-widths, xl);
+  max-width: 1140px; // xl breakpoint max-width
   margin: 0 auto;
   padding: 0 $spacing-md;
   

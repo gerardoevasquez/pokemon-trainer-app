@@ -31,7 +31,7 @@ export class DuiFormatDirective implements OnInit {
    * Listens to input events and formats DUI automatically
    */
   @HostListener('input', ['$event'])
-  onInput(event: InputEvent): void {
+  onInput(event: Event): void {
     if (!this.appDuiFormat) return;
 
     const input = event.target as HTMLInputElement;
