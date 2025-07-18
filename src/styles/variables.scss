@@ -11,6 +11,11 @@ $color-secondary: #ff4081;
 $color-secondary-light: #ff79b0;
 $color-secondary-dark: #c60055;
 
+// Pokemon Brand Colors
+$color-pokemon-blue: #01426A;
+$color-pokemon-yellow: #FFC600;
+$color-pokemon-red: #DC0A2D;
+
 // Pokemon Type Colors
 $pokemon-types: (
   'normal': #a8a878,
@@ -54,7 +59,7 @@ $color-error: #f44336;
 $color-info: #2196f3;
 
 // Typography
-$font-family-primary: 'Roboto', 'Helvetica Neue', sans-serif;
+$font-family-primary: 'Poppins', 'Roboto', 'Helvetica Neue', sans-serif;
 $font-family-secondary: 'Pokemon', 'Arial', sans-serif;
 
 $font-size-xs: 0.75rem;    // 12px
@@ -199,5 +204,31 @@ $border-color-focus: $color-primary;
   
   &:hover {
     box-shadow: $shadow-lg;
+  }
+}
+
+// Global hover styles for Pokémon theme
+.pokemon-hover {
+  transition: all $transition-normal;
+  
+  &:hover {
+    background-color: #E7EFF5 !important; // Primary/Azul/Azul 40
+    border-color: $color-pokemon-blue !important;
+  }
+  
+  &:focus {
+    background-color: #E7EFF5 !important; // Primary/Azul/Azul 40
+    border-color: $color-pokemon-blue !important;
+    outline: none !important;
+  }
+}
+
+// Global button hover styles
+.btn-hover {
+  transition: all $transition-normal;
+  
+  &:hover {
+    background-color: #E7EFF5 !important; // Primary/Azul/Azul 40
+    color: $color-pokemon-blue !important;
   }
 } 

@@ -1,0 +1,79 @@
+<!-- AppHeader Component Template -->
+<header class="app-header">
+  <!-- Main Header Bar -->
+  <div class="app-header__bar">
+    <!-- Left Section: Pokémon Logo -->
+    <div class="app-header__left">
+      <div class="app-header__logo">
+        <!-- Logo as Image (default) -->
+        <img 
+          *ngIf="useLogoImage"
+          [src]="logoPath" 
+          alt="Pokémon Logo" 
+          class="app-header__logo-img"
+          (error)="onLogoError()">
+        
+        <!-- Logo as Text (fallback) -->
+        <span 
+          *ngIf="!useLogoImage || logoError" 
+          class="app-header__logo-text">
+          Pokémon
+        </span>
+      </div>
+    </div>
+    
+    <!-- Center Section: Empty for now -->
+    <div class="app-header__center">
+      <!-- Future content can go here -->
+    </div>
+    
+    <!-- Right Section: User Controls -->
+    <div class="app-header__right">
+      <!-- User Dropdown (optional) -->
+      <div *ngIf="showUserDropdown" class="app-header__user-section">
+        <button 
+          mat-button
+          [matMenuTriggerFor]="userMenu"
+          class="app-header__user-btn"
+          (click)="onUserMenuOpen()"
+          [attr.aria-label]="'Menú de usuario para ' + userName">
+          <span class="app-header__user-name">{{ userName }}
+          <mat-icon class="app-header__user-arrow">expand_more</mat-icon>
+        </span>
+        </button>
+        
+        <mat-menu #userMenu="matMenu" class="app-header__user-menu">
+          <button mat-menu-item (click)="onUserMenuItemSelect('profile')">
+            <mat-icon>person</mat-icon>
+            <span>Mi Perfil</span>
+          </button>
+          <button mat-menu-item (click)="onUserMenuItemSelect('settings')">
+            <mat-icon>settings</mat-icon>
+            <span>Configuración</span>
+          </button>
+          <mat-divider></mat-divider>
+          <button mat-menu-item (click)="onUserMenuItemSelect('logout')">
+            <mat-icon>logout</mat-icon>
+            <span>Cerrar Sesión</span>
+          </button>
+        </mat-menu>
+      </div>
+
+        <!-- Search Icon (optional) -->
+        <button 
+        *ngIf="showSearch"
+        class="app-header__search-btn"
+        mat-icon-button
+        (click)="onSearchClick()"
+        aria-label="Buscar">
+        <mat-icon>search</mat-icon>
+      </button>
+      
+    </div>
+  </div>
+  
+  <!-- Loading State (optional) -->
+  <div *ngIf="isLoading" class="app-header__loading">
+    <div class="app-header__loading-spinner"></div>
+  </div>
+</header> 

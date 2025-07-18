@@ -1,0 +1,287 @@
+// AppHeader Component Styles
+// Following BEM methodology and Figma design (1440x1024 screen, 1440x75 header)
+
+// Import variables from global styles
+@use '../../../../styles/variables' as *;
+@use 'sass:color';
+
+.app-header {
+  width: 100%;
+  height: 75px; // Figma specification
+  background-color: $color-white;
+  border-bottom: 1px solid $color-gray-200;
+  box-shadow: $shadow-sm;
+  position: relative;
+  z-index: $z-index-sticky;
+
+  &__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding: 0 20px; // Reducido para que el logo esté más a la izquierda
+    max-width: 1440px; // Figma specification
+    margin: 0 auto;
+    position: relative;
+
+    @include respond-to(sm) {
+      padding: 0 30px;
+    }
+
+    @include respond-to(lg) {
+      padding: 0 40px;
+    }
+  }
+
+  &__left {
+    flex: 0 0 auto; // No flex, tamaño fijo
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left: -10px; // Mover el logo más a la izquierda
+  }
+
+  &__center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // Oculto por ahora, pero disponible para contenido futuro
+  }
+
+  &__right {
+    flex: 0 0 auto; // No flex, tamaño fijo
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: $spacing-md; // Más espacio entre elementos
+  }
+
+  // Title styles removed as it's no longer used
+  // &__title { ... }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; // Alinear a la izquierda
+    height: 75px; // Altura total del header
+    // Removido margin-top para mejor alineación
+  }
+
+  &__logo-img {
+    width: 138px; // Ancho exacto según el diseño
+    height: 51px; // Alto exacto según el diseño
+    object-fit: contain;
+    transition: transform $transition-normal;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    @include respond-to(sm) {
+      width: 150px;
+      height: 55px;
+    }
+
+    @include respond-to(md) {
+      width: 160px;
+      height: 58px;
+    }
+  }
+
+  &__logo-text {
+    font-family: $font-family-secondary;
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    background: linear-gradient(135deg, #3f51b5 0%, #ff4081 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    @include respond-to(md) {
+      font-size: $font-size-3xl;
+    }
+  }
+
+  &__search-btn {
+    @extend .btn-hover; // Usar estilos globales de hover
+    color: $color-pokemon-blue !important; // Color azul para el icono de búsqueda
+    width: 36px !important; // Mismo alto que el dropdown
+    height: 36px !important; // Mismo alto que el dropdown
+    border-radius: 50% !important; // Circular
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: unset !important;
+    padding: 0 !important;
+
+    mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+
+    // Override Material styles
+    &.mat-mdc-icon-button {
+      border-radius: 50% !important;
+    }
+  }
+
+  &__user-section {
+    display: flex;
+    align-items: center;
+    margin-left: $spacing-lg; // Espacio entre search y dropdown
+  }
+
+  &__user-btn {
+    @extend .pokemon-hover; // Usar estilos globales de hover
+    display: flex;
+    align-items: center;
+    justify-content: center; // Centrar el contenido
+    color: $color-gray-700 !important;
+    font-weight: $font-weight-medium;
+    width: 160px; // Ancho exacto según el diseño
+    height: 36px; // Alto exacto según el diseño
+    border-radius: 10px !important; // Radio exacto según el diseño
+    border: 1px solid $color-pokemon-blue !important; // Color azul específico del diseño
+    background-color: $color-white !important;
+    padding: 0 $spacing-sm !important;
+    min-width: unset !important;
+    line-height: 1 !important;
+
+    // Override Material styles
+    &.mat-mdc-button {
+      border-radius: 10px !important;
+    }
+  }
+
+  &__user-name {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; // Distribuir espacio entre texto e icono
+    width: 100%; // Ocupar todo el ancho disponible
+    font-family: 'Poppins', sans-serif; // Fuente según el diseño
+    font-size: 14px; // Tamaño exacto según el diseño
+    font-weight: 600; // SemiBold según el diseño
+    font-style: normal;
+    line-height: 22px; // Altura de línea exacta según el diseño
+    letter-spacing: 0px; // Espaciado entre letras según el diseño
+    color: $color-pokemon-blue; // Color azul para el texto del usuario
+  }
+
+  &__user-arrow {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    color: $color-pokemon-blue; // Color azul para la flecha
+    transition: transform $transition-normal;
+  }
+
+  &__user-menu {
+    min-width: 200px;
+    border-radius: 10px;
+    box-shadow: $shadow-lg;
+    border: 1px solid $color-gray-200;
+    overflow: hidden;
+    margin-top: $spacing-xs;
+
+    .mat-mdc-menu-item {
+      display: flex;
+      align-items: center;
+      gap: $spacing-sm;
+      padding: $spacing-md $spacing-lg;
+      font-size: $font-size-base;
+      color: $color-gray-700;
+      transition: background-color $transition-normal;
+      min-height: 48px;
+
+      &:hover {
+        background-color: $color-gray-50;
+      }
+
+      mat-icon {
+        color: $color-pokemon-blue;
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+      }
+
+      span {
+        font-weight: $font-weight-medium;
+      }
+    }
+
+    .mat-mdc-divider {
+      margin: $spacing-xs 0;
+      border-color: $color-gray-200;
+    }
+  }
+
+  &__loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba($color-white, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+  }
+
+  &__loading-spinner {
+    width: 24px;
+    height: 24px;
+    border: 2px solid $color-gray-200;
+    border-top: 2px solid $color-primary;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .app-header {
+    &__bar {
+      padding: 0 $spacing-md;
+    }
+
+    &__left {
+      margin-left: -5px; // Menos margen negativo en móviles
+    }
+
+    &__logo-img {
+      width: 120px;
+      height: 44px;
+    }
+
+    &__logo-text {
+      font-size: $font-size-xl;
+    }
+
+    &__user-btn {
+      width: 140px; // Más pequeño en móviles
+      height: 32px; // Más pequeño en móviles
+    }
+
+    &__user-name {
+      display: none; // Hide username on mobile, show only icon
+    }
+
+    &__user-arrow {
+      display: none; // Hide arrow on mobile
+    }
+
+    &__user-section {
+      margin-left: $spacing-md; // Espacio medio en móviles
+    }
+  }
+}
+
+// Animation for loading spinner
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+} 
