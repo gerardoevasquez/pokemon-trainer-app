@@ -1,1 +1,170 @@
 /* You can add global styles to this file, and also import other style files */
+
+// Import variables and mixins
+@import 'styles/variables';
+
+// Global styles following BEM methodology and responsive design
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: $font-family-primary;
+  font-size: $font-size-base;
+  line-height: $line-height-normal;
+  color: $color-gray-900;
+  background-color: $color-gray-50;
+}
+
+// Utility classes following BEM methodology
+.container {
+  width: 100%;
+  max-width: map-get($container-max-widths, xl);
+  margin: 0 auto;
+  padding: 0 $spacing-md;
+  
+  @include respond-to(sm) {
+    padding: 0 $spacing-lg;
+  }
+  
+  @include respond-to(lg) {
+    padding: 0 $spacing-xl;
+  }
+}
+
+// Responsive grid system
+.grid {
+  display: grid;
+  gap: $spacing-md;
+  
+  &--2-cols {
+    grid-template-columns: 1fr;
+    
+    @include respond-to(md) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  &--3-cols {
+    grid-template-columns: 1fr;
+    
+    @include respond-to(md) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @include respond-to(lg) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  &--4-cols {
+    grid-template-columns: 1fr;
+    
+    @include respond-to(sm) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @include respond-to(md) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    @include respond-to(lg) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}
+
+// Flexbox utilities
+.flex {
+  display: flex;
+  
+  &--center {
+    @include flex-center;
+  }
+  
+  &--between {
+    @include flex-between;
+  }
+  
+  &--column {
+    flex-direction: column;
+  }
+  
+  &--wrap {
+    flex-wrap: wrap;
+  }
+}
+
+// Spacing utilities
+.mt {
+  &-0 { margin-top: 0; }
+  &-1 { margin-top: $spacing-xs; }
+  &-2 { margin-top: $spacing-sm; }
+  &-3 { margin-top: $spacing-md; }
+  &-4 { margin-top: $spacing-lg; }
+  &-5 { margin-top: $spacing-xl; }
+}
+
+.mb {
+  &-0 { margin-bottom: 0; }
+  &-1 { margin-bottom: $spacing-xs; }
+  &-2 { margin-bottom: $spacing-sm; }
+  &-3 { margin-bottom: $spacing-md; }
+  &-4 { margin-bottom: $spacing-lg; }
+  &-5 { margin-bottom: $spacing-xl; }
+}
+
+.p {
+  &-0 { padding: 0; }
+  &-1 { padding: $spacing-xs; }
+  &-2 { padding: $spacing-sm; }
+  &-3 { padding: $spacing-md; }
+  &-4 { padding: $spacing-lg; }
+  &-5 { padding: $spacing-xl; }
+}
+
+// Text utilities
+.text {
+  &--center { text-align: center; }
+  &--left { text-align: left; }
+  &--right { text-align: right; }
+  &--truncate { @include text-truncate; }
+  &--uppercase { text-transform: uppercase; }
+  &--capitalize { text-transform: capitalize; }
+}
+
+// Card component
+.card {
+  background-color: $color-white;
+  border-radius: $border-radius-lg;
+  @include card-shadow;
+  padding: $spacing-lg;
+  
+  &--pokemon {
+    width: $pokemon-card-width;
+    height: $pokemon-card-height;
+    text-align: center;
+  }
+}
+
+// Loading animation
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading {
+  @include flex-center;
+  
+  &__spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid $color-gray-200;
+    border-top: 4px solid $color-primary;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+}
