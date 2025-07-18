@@ -1,59 +1,132 @@
-# GerardoVasquezPruebaTecnica
+# Pokemon Trainer App - Prueba Técnica Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.3.
+Aplicación Angular para crear y gestionar perfiles de entrenadores Pokémon, consumiendo la PokeAPI.
 
-## Development server
+## 🎯 Funcionalidades
 
-To start a local development server, run:
+- **Perfil de Entrenador**: Configuración con foto, nombre, pasatiempo, fecha de nacimiento y documento de identidad
+- **Selección de Equipo**: Lista de Pokémon de primera generación con filtros y selección de 3 Pokémon
+- **Perfil del Entrenador**: Visualización de datos y equipo seleccionado
+- **Edición**: Modificación de perfil y equipo Pokémon
+- **Validaciones**: Formularios con validaciones específicas según edad
 
+## 🚀 Instalación y Ejecución
+
+### Prerrequisitos
+- Node.js (versión 18 o superior)
+- npm o yarn
+- Angular CLI
+
+### Instalación
+
+1. **Clonar el repositorio**
+```bash
+git clone <url-del-repositorio>
+cd gerardo-vasquez-prueba-tecnica
+```
+
+2. **Instalar dependencias**
+```bash
+npm install
+```
+
+3. **Ejecutar en modo desarrollo**
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+4. **Abrir en el navegador**
+```
+http://localhost:4200
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Scripts disponibles
 
-```bash
-ng generate --help
+- `npm start` - Ejecuta la aplicación en modo desarrollo
+- `npm run build` - Construye la aplicación para producción
+- `npm test` - Ejecuta las pruebas unitarias
+- `npm run lint` - Ejecuta el linter
+
+## 🏗️ Estructura del Proyecto
+
+```
+src/
+├── app/
+│   ├── components/          # Componentes reutilizables
+│   ├── pages/              # Páginas principales
+│   ├── services/           # Servicios para API y lógica de negocio
+│   ├── models/             # Interfaces y tipos TypeScript
+│   ├── shared/             # Componentes y utilidades compartidas
+│   └── utils/              # Utilidades y helpers
+├── assets/                 # Imágenes, iconos y recursos estáticos
+└── styles/                 # Estilos globales y variables CSS
 ```
 
-## Building
+## 🎨 Diseño
 
-To build the project run:
+El diseño sigue las especificaciones del archivo Figma proporcionado:
+- [Figma Design](https://www.figma.com/file/hYCiD7uLE5ICSZLxrYJqZ3/Pokemon-Trainer?node-id=0%3A1)
 
-```bash
-ng build
-```
+## 🔌 API
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+La aplicación consume la PokeAPI:
+- **Base URL**: https://pokeapi.co/
+- **Documentación**: https://pokeapi.co/docs/v2
 
-## Running unit tests
+### Endpoints principales utilizados:
+- `/api/v2/pokemon/` - Lista de Pokémon
+- `/api/v2/pokemon/{id}/` - Detalles de Pokémon específico
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+## 🧪 Testing
 
 ```bash
-ng e2e
+# Ejecutar todas las pruebas
+npm test
+
+# Ejecutar pruebas con coverage
+npm run test:coverage
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## 🐳 Docker
 
-## Additional Resources
+Para ejecutar con Docker:
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```bash
+# Construir imagen
+docker build -t pokemon-trainer .
+
+# Ejecutar contenedor
+docker run -p 4200:4200 pokemon-trainer
+```
+
+## 📦 Despliegue
+
+### Google Cloud Platform
+
+1. **Configurar Google Cloud CLI**
+2. **Construir para producción**
+```bash
+npm run build:prod
+```
+3. **Desplegar en Cloud Run o App Engine**
+
+## 🔧 Tecnologías Utilizadas
+
+- **Framework**: Angular 20
+- **Lenguaje**: TypeScript
+- **Estilos**: SCSS
+- **Testing**: Jasmine + Karma
+- **Linting**: ESLint
+- **Package Manager**: npm
+
+## 📝 Notas de Desarrollo
+
+- Todos los comentarios y commits están en inglés
+- Se sigue Git Flow para el versionamiento
+- Validaciones específicas para DUI y carnet de minoridad según edad
+- Implementación de virtual scroll para optimización de rendimiento
+- Uso de Swiper para carruseles de Pokémon
+
+## 👨‍💻 Autor
+
+Gerardo Vasquez - Prueba Técnica Frontend Developer
