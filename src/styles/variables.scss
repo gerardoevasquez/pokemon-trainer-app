@@ -1,8 +1,3 @@
-// =============================================================================
-// SCSS Variables - Pokemon Trainer App
-// Following BEM methodology and responsive design principles
-// =============================================================================
-
 // Color Palette
 $color-primary: #3f51b5;
 $color-primary-light: #757de8;
@@ -144,12 +139,25 @@ $pokemon-card-width: 280px;
 $pokemon-card-height: 320px;
 $pokemon-sprite-size: 120px;
 
-// Form Elements
-$input-height: 48px;
-$button-height: 48px;
-$border-width: 1px;
-$border-color: $color-gray-300;
-$border-color-focus: $color-primary;
+// Form Elements - Actualizado con dimensiones específicas del diseño
+$input-height: 50px; // Actualizado según el diseño (334x50)
+$input-width: 334px; // Ancho específico del diseño
+$form-width: 349px; // Ancho del formulario
+$input-border-radius: 12px; // Radio específico del diseño
+$input-gap: 10px; // Espacio entre inputs según diseño
+
+// Form field dimensions
+$form-field-dimensions: (
+  'input': (
+    'width': $input-width,
+    'height': $input-height,
+    'border-radius': $input-border-radius,
+    'gap': $input-gap
+  ),
+  'form': (
+    'width': $form-width
+  )
+);
 
 // Mixins for responsive design
 @mixin respond-to($breakpoint) {

@@ -1,0 +1,77 @@
+@use '../../../../styles/variables' as *;
+
+.primary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-sm;
+  font-family: $font-family-primary;
+  font-weight: $font-weight-semibold;
+  border-radius: $border-radius-md;
+  transition: all $transition-normal;
+  text-transform: none;
+  letter-spacing: 0.5px;
+  
+  &--small {
+    padding: $spacing-sm $spacing-md;
+    font-size: $font-size-sm;
+    min-height: 36px;
+  }
+  
+  &--medium {
+    padding: $spacing-md $spacing-lg;
+    font-size: $font-size-base;
+    min-height: 48px;
+  }
+  
+  &--large {
+    padding: $spacing-lg $spacing-xl;
+    font-size: $font-size-lg;
+    min-height: 56px;
+  }
+  
+  ::ng-deep {
+    .mat-mdc-raised-button {
+      background-color: $color-pokemon-blue !important;
+      color: $color-white !important;
+      border: none !important;
+      box-shadow: $shadow-md !important;
+      
+      &:hover:not(:disabled) {
+        background-color: darken($color-pokemon-blue, 10%) !important;
+        box-shadow: $shadow-lg !important;
+        transform: translateY(-1px);
+      }
+      
+      &:active:not(:disabled) {
+        transform: translateY(0);
+        box-shadow: $shadow-sm !important;
+      }
+      
+      &:disabled {
+        background-color: $color-gray-400 !important;
+        color: $color-gray-600 !important;
+        box-shadow: none !important;
+        cursor: not-allowed;
+      }
+    }
+  }
+  
+  &__spinner {
+    ::ng-deep {
+      .mat-mdc-progress-spinner-circle {
+        stroke: $color-white !important;
+      }
+    }
+  }
+  
+  &__icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+  
+  &__text {
+    font-weight: $font-weight-semibold;
+  }
+} 

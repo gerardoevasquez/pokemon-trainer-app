@@ -1,0 +1,84 @@
+<div class="pokemon-selection-page">
+  
+  <!-- Header -->
+  <app-app-header 
+    [showUserDropdown]="false"
+    [showSearch]="false">
+  </app-app-header>
+  
+  <!-- Main Content -->
+  <main class="pokemon-selection__main">
+    <div class="container">
+      
+      <!-- Step Message -->
+      <div class="pokemon-selection__step-message">
+        <app-step-message
+          [message]="{
+            title: '¡Ya casi terminamos!',
+            subtitle: 'Revisa la información, y completa lo solicitado.',
+            showBackButton: true,
+            showEditButton: false
+          }"
+          (backClick)="onBackClick()">
+        </app-step-message>
+      </div>
+      
+      <!-- Content Flex Container -->
+      <div class="pokemon-selection__content-flex">
+        
+        <!-- Left Section - Profile Display -->
+        <div class="pokemon-selection__profile-section">
+          <app-profile-image-uploader
+            [profileData]="profileDataForDisplay"
+            [isEditMode]="false">
+          </app-profile-image-uploader>
+        </div>
+        
+        <!-- Right Section - Pokemon Selection -->
+        <div class="pokemon-selection__pokemon-section">
+          
+          <!-- Section Header -->
+          <div class="section-header">
+            <div class="section-title">Pokémon</div>
+            <div class="section-subtitle">
+              Selecciona 3 Pokémon para que sean parte de tu equipo
+            </div>
+          </div>
+          
+          <!-- Search Bar -->
+          <div class="pokemon-selection__search">
+            <app-search-bar
+              placeholder="Buscar por índice, nombre..."
+              (search)="onSearch($event)">
+            </app-search-bar>
+          </div>
+          
+          <!-- Pokemon Grid -->
+          <div class="pokemon-selection__grid">
+            <app-pokemon-grid
+              [pokemonList]="filteredPokemon"
+              [selectedPokemon]="selectedPokemon"
+              [isLoading]="isLoading"
+              (pokemonSelected)="onPokemonSelected($event)"
+              (pokemonRemoved)="onPokemonRemoved($event)">
+            </app-pokemon-grid>
+          </div>
+          
+          <!-- Save Button -->
+          <div class="pokemon-selection__button-container">
+            <app-primary-button
+              [disabled]="!canSave"
+              [loading]="false"
+              (click)="onSaveTeam()">
+              Guardar
+            </app-primary-button>
+          </div>
+          
+        </div>
+        
+      </div>
+      
+    </div>
+  </main>
+  
+</div>

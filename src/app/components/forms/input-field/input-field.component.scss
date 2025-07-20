@@ -1,0 +1,7 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/forms' as *;
+
+.input-field {
+  @include material-form-field;
+  width: $input-width; // Ancho específico del diseño (334px)
+}

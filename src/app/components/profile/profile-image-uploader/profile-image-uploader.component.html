@@ -1,0 +1,73 @@
+<div class="profile-image-uploader">
+  <mat-card class="profile-card">
+    <mat-card-content>
+      
+      <!-- Title -->
+      <div class="profile-title">
+        Imagen perfil
+      </div>
+      
+      <!-- Image Section -->
+      <div class="image-section">
+        <!-- Empty State Circle -->
+        <div class="image-container empty-state" *ngIf="!hasImage()" (click)="triggerFileInput()">
+          <mat-icon class="placeholder-icon">person</mat-icon>
+        </div>
+        
+        <!-- Image when selected -->
+        <div class="image-container" *ngIf="hasImage()">
+          <img 
+            [src]="getDisplayImage()" 
+            alt="Profile image"
+            class="profile-image">
+        </div>
+        
+        <!-- Upload Area - Empty State -->
+        <div class="upload-area" *ngIf="isEditMode && !hasImage()" (click)="triggerFileInput()">
+          <div class="upload-content">
+            <span class="upload-text">Adjunta un foto</span>
+            <mat-icon class="upload-icon">cloud_upload_outlined</mat-icon>
+          </div>
+        </div>
+        
+        <!-- Upload Area - File Selected -->
+        <div class="upload-area file-selected" *ngIf="isEditMode && hasImage()">
+          <div class="file-info">
+            <span class="file-name">{{ getFileName() }}</span>
+            <button 
+              mat-icon-button 
+              class="delete-button"
+              (click)="removeImage()"
+              aria-label="Eliminar imagen">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Hidden file input -->
+        <input 
+          type="file" 
+          #fileInput
+          accept="image/*"
+          (change)="onFileSelected($event)"
+          class="file-input"
+          style="display: none;">
+      </div>
+      
+      <!-- Profile Info (display mode) -->
+      <div class="profile-info" *ngIf="profileData && !isEditMode">
+        <div class="info-item">
+          <strong>Pasatiempo:</strong> {{ profileData.hobby }}
+        </div>
+        <div class="info-item">
+          <strong>Edad:</strong> {{ profileData.age }} años
+        </div>
+        <div class="info-item">
+          <strong>DUI:</strong> {{ profileData.document }}
+        </div>
+      </div>
+      
+    </mat-card-content>
+  </mat-card>
+</div>
+

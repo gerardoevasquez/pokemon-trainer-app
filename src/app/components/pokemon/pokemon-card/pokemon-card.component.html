@@ -1,0 +1,68 @@
+<mat-card 
+  class="pokemon-card"
+  [class.pokemon-card--selected]="isSelected"
+  [class.pokemon-card--disabled]="isDisabled"
+  [class.pokemon-card--loading]="isLoading"
+  (click)="onCardClick()">
+  
+  <!-- Loading State -->
+  <div class="pokemon-card__loading" *ngIf="isLoading">
+    <div class="pokemon-card__loading-spinner"></div>
+  </div>
+  
+  <!-- Pokemon Image -->
+  <div class="pokemon-card__image-container">
+    <img 
+      [src]="imageUrl" 
+      [alt]="pokemonItem.name"
+      class="pokemon-card__image"
+      (error)="imageUrl = 'assets/images/pokemon/pokemon-placeholder.png'">
+  </div>
+  
+  <!-- Pokemon Info -->
+  <div class="pokemon-card__info">
+    <div class="pokemon-card__number">#{{ pokemonId.toString().padStart(3, '0') }}</div>
+    <h3 class="pokemon-card__name">{{ pokemonItem.name | titlecase }}</h3>
+    
+    <!-- Pokemon Types -->
+    <div class="pokemon-card__types" *ngIf="pokemon">
+      <span 
+        *ngFor="let type of getPokemonTypes()"
+        class="pokemon-card__type"
+        [style.background-color]="getTypeColor(type)">
+        {{ type | titlecase }}
+      </span>
+    </div>
+  </div>
+  
+  <!-- Action Buttons -->
+  <div class="pokemon-card__actions">
+    <!-- Select Button -->
+    <button 
+      *ngIf="!isSelected && !isDisabled"
+      mat-icon-button
+      class="pokemon-card__select-btn"
+      (click)="onSelectClick($event)"
+      aria-label="Seleccionar Pokémon">
+      <mat-icon>add_circle</mat-icon>
+    </button>
+    
+    <!-- Remove Button -->
+    <button 
+      *ngIf="isSelected"
+      mat-icon-button
+      class="pokemon-card__remove-btn"
+      (click)="onRemoveClick($event)"
+      aria-label="Remover Pokémon">
+      <mat-icon>remove_circle</mat-icon>
+    </button>
+    
+    <!-- Selected Indicator -->
+    <div 
+      *ngIf="isSelected"
+      class="pokemon-card__selected-indicator">
+      <mat-icon>check_circle</mat-icon>
+    </div>
+  </div>
+  
+</mat-card>

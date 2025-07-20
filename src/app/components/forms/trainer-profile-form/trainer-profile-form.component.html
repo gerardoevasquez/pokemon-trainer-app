@@ -1,0 +1,52 @@
+<form 
+  [formGroup]="trainerForm"
+  (ngSubmit)="onSubmit()"
+  class="trainer-profile-form">
+
+  <!-- Name Field -->
+  <app-input-field
+    formControlName="name"
+    label="Nombre"
+    placeholder="Ingresa tu nombre completo"
+    [required]="true">
+  </app-input-field>
+  
+  <!-- Hobby Field -->
+  <app-input-field
+    formControlName="hobby"
+    label="Pasatiempo favorito"
+    placeholder="Ej: Jugar Fútbol">
+  </app-input-field>
+  
+  <!-- Birthday Field -->
+  <app-date-picker-field
+    formControlName="birthday"
+    label="Cumpleaños"
+    placeholder="Selecciona tu fecha de nacimiento"
+    [required]="true"
+    [maxDate]="maxDate"
+    (ageChanged)="onAgeChanged($event)">
+  </app-date-picker-field>
+  
+  <!-- Document Field (Dynamic based on age) -->
+  <app-input-field
+    formControlName="document"
+    [label]="getDocumentLabel()"
+    [placeholder]="getDocumentPlaceholder()"
+    [required]="true"
+    [maxLength]="getDocumentMaxLength()"
+    [disabled]="!hasValidBirthday">
+  </app-input-field>
+  
+  <!-- Submit Button -->
+  <div class="trainer-profile-form__button-container">
+    <app-primary-button
+      text="Continuar"
+      type="submit"
+      size="large"
+      [disabled]="!isFormValid"
+      [loading]="isLoading">
+    </app-primary-button>
+  </div>
+  
+</form>

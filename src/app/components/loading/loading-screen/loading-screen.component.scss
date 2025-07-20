@@ -1,0 +1,157 @@
+@use '../../../../styles/variables' as *;
+
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: $z-index-modal;
+  background-color: $color-white; // Fondo blanco
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__logo {
+    position: absolute;
+    top: $spacing-lg;
+    left: $spacing-lg;
+    z-index: 10;
+    
+    &-img {
+      height: 32px;
+      width: auto;
+      object-fit: contain;
+    }
+  }
+
+  &__container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid $color-pokemon-blue; // Borde azul que toma toda la pantalla
+    box-sizing: border-box;
+  }
+
+  &__animation {
+    margin-bottom: 48px; // Paragraph spacing exacto del diseño
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 274px; // Altura exacta del GIF
+  }
+
+  &__pokeball {
+    width: 267px; // Ancho exacto del GIF
+    height: 274px; // Alto exacto del GIF
+    object-fit: contain;
+  }
+
+  &__message {
+    margin-bottom: 0;
+    width: 213px; // Ancho exacto del texto
+    height: 53px; // Alto exacto del texto
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__text {
+    font-family: 'Poppins', sans-serif; // Fuente exacta
+    font-size: 35px; // Tamaño exacto
+    font-weight: 700; // Peso exacto (Bold)
+    line-height: 100%; // Altura de línea exacta
+    letter-spacing: 0%; // Espaciado de letras
+    color: #185A7D; // Color exacto Primary/Azul/Azul 10
+    margin: 0;
+    text-align: center; // Alineación centrada
+    vertical-align: middle; // Alineación vertical
+  }
+
+  &__dots {
+    display: inline-block;
+  }
+
+  &__dot {
+    display: inline-block;
+    animation: wave 1.5s ease-in-out infinite;
+    
+    &:nth-child(1) {
+      animation-delay: 0s;
+    }
+    
+    &:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    
+    &:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+  }
+}
+
+// Animación de ola para los puntos
+@keyframes wave {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  30% {
+    transform: translateY(-10px);
+    opacity: 0.7;
+  }
+}
+
+// Responsive - mantener proporciones en pantallas pequeñas
+@media (max-width: $breakpoint-md) {
+  .loading-screen {
+    &__logo-img {
+      height: 24px;
+    }
+    
+    &__pokeball {
+      width: 200px;
+      height: 205px;
+    }
+    
+    &__animation {
+      height: 205px;
+      margin-bottom: 32px;
+    }
+    
+    &__text {
+      font-size: 28px; // Reducir proporcionalmente
+    }
+    
+    &__message {
+      width: 170px;
+      height: 42px;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .loading-screen {
+    &__pokeball {
+      width: 150px;
+      height: 154px;
+    }
+    
+    &__animation {
+      height: 154px;
+      margin-bottom: 24px;
+    }
+    
+    &__text {
+      font-size: 24px;
+    }
+    
+    &__message {
+      width: 140px;
+      height: 36px;
+    }
+  }
+} 

@@ -1,0 +1,23 @@
+<mat-form-field 
+  class="input-field"
+  [appearance]="'outline'"
+  [hideRequiredMarker]="false">
+  
+  <mat-label>{{ label }}</mat-label>
+  
+  <input 
+    matInput
+    [type]="type"
+    [placeholder]="placeholder"
+    [formControl]="formControl"
+    [required]="required"
+    [attr.maxLength]="maxLength || undefined"
+    [disabled]="disabled">
+  
+  <mat-error *ngIf="isError">
+    {{ errorMessage || 'Este campo es requerido' }}
+  </mat-error>
+  
+  <mat-hint *ngIf="hint">{{ hint }}</mat-hint>
+  
+</mat-form-field> 

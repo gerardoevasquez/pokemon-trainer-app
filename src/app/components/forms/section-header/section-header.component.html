@@ -1,0 +1,20 @@
+<div 
+  class="section-header"
+  [class]="'section-header--' + size + ' section-header--' + align">
+  
+  <h2 class="section-header__title">
+    {{ title }}
+  </h2>
+  
+  <p 
+    *ngIf="subtitle"
+    class="section-header__subtitle">
+    {{ subtitle }}
+  </p>
+  
+  <div 
+    *ngIf="showDivider"
+    class="section-header__divider">
+  </div>
+  
+</div> 

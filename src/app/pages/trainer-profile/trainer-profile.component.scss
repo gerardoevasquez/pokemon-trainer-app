@@ -1,0 +1,135 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/forms' as *;
+
+.trainer-profile-page {
+  min-height: 100vh;
+  background: $color-gray-100;
+
+  .trainer-profile__main {
+    padding: $spacing-xl 0;
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 $spacing-xl;
+    }
+
+    // Step Message - Div superior independiente
+    .trainer-profile__step-message {
+      margin-bottom: $spacing-2xl;
+      width: 100%;
+    }
+
+    // Content Flex Container - Div inferior con flex
+    .trainer-profile__content-flex {
+      display: flex;
+      gap: 68px; // O el gap exacto de tu diseño
+      align-items: flex-start;
+      max-width: 1000px;
+      margin: 0 auto;
+
+      @media (max-width: $breakpoint-md) {
+        flex-direction: column;
+        gap: $spacing-xl;
+      }
+    }
+
+    .trainer-profile__image-section {
+      flex: 0 0 auto;
+      display: flex;
+      justify-content: center;
+    }
+
+    .trainer-profile__form-section {
+      width: 349px; // Medida exacta del formulario según tu diseño
+      flex-shrink: 0;
+      margin: 0 auto;
+
+      .trainer-profile-form {
+        background: $color-white;
+        border-radius: $border-radius-lg;
+        padding: $spacing-xl;
+        box-shadow: $shadow-lg;
+        height: fit-content;
+        max-height: 523px;
+        overflow-y: auto;
+
+        // Estilos para los campos del formulario
+        app-input-field,
+        app-date-picker-field {
+          margin-bottom: $spacing-lg;
+          display: block;
+        }
+
+        .trainer-profile-form__button-container {
+          margin-top: $spacing-xl;
+          display: flex;
+          justify-content: center;
+        }
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: $breakpoint-md) {
+  .trainer-profile__form-section {
+    margin: 0 $spacing-md;
+    padding: $spacing-xl;
+  }
+  
+  .trainer-profile__title {
+    font-size: $font-size-2xl;
+  }
+  
+  .trainer-profile__subtitle {
+    font-size: $font-size-base;
+  }
+}
+
+// Animación para la aparición del formulario
+.trainer-profile__form-section {
+  animation: slideInUp 0.6s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section-header {
+  width: $form-width;
+  height: 102px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  .section-title {
+    font-family: $font-family-primary;
+    font-size: 32px;
+    font-weight: 600;
+    color: #236191;
+    margin-bottom: 0.25rem;
+    line-height: 1.1;
+  }
+
+  .section-subtitle {
+    font-family: $font-family-primary;
+    font-size: 16px;
+    font-weight: 400;
+    color: #8A8A8A;
+    line-height: 1.2;
+  }
+}
+
+.form-input {
+  @extend .form-field;
+}

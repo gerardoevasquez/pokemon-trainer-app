@@ -1,2 +1,9 @@
 
-<router-outlet />
+<router-outlet></router-outlet>
+
+<!-- Loading Screen Global -->
+<app-loading-screen 
+  [isVisible]="(loadingService.loading$ | async) ?? false"
+  [config]="(loadingService.config$ | async) ?? {}"
+  (loadingComplete)="onLoadingComplete()">
+</app-loading-screen>

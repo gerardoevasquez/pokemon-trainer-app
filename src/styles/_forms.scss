@@ -1,0 +1,129 @@
+@use 'variables' as *;
+
+// Mixin para estilos base de campos de formulario
+@mixin form-field-base {
+  width: map-get(map-get($form-field-dimensions, 'input'), 'width');
+  height: map-get(map-get($form-field-dimensions, 'input'), 'height');
+  font-family: $font-family-primary;
+  font-size: $font-size-base;
+  background: $color-white;
+  outline: none;
+  transition: border-color $transition-normal;
+  box-sizing: border-box;
+  padding: 0 $spacing-md;
+  margin-bottom: map-get(map-get($form-field-dimensions, 'input'), 'gap');
+
+  &:focus {
+    border-color: $color-pokemon-blue;
+  }
+
+  &:disabled {
+    background-color: $color-gray-50;
+    color: $color-gray-500;
+    cursor: not-allowed;
+  }
+  
+}
+
+// Mixin para estilos de Material Design
+@mixin material-form-field {
+  ::ng-deep {
+    .mat-mdc-form-field {
+      width: 100%;
+    }
+    
+    .mat-mdc-text-field-wrapper {
+      background-color: $color-white;
+      transition: all $transition-normal;
+      
+      &:hover {
+        border-color: $color-pokemon-blue;
+      }
+      
+      &.mat-focused {
+        border-color: $color-pokemon-blue;
+        box-shadow: 0 0 0 2px rgba($color-pokemon-blue, 0.1);
+      }
+      
+      &.mat-form-field-invalid {
+        border-color: $color-error;
+        
+        &.mat-focused {
+          box-shadow: 0 0 0 2px rgba($color-error, 0.1);
+        }
+      }
+    }
+    
+    .mat-mdc-form-field-label {
+      color: $color-gray-600;
+      font-family: $font-family-primary;
+      font-weight: $font-weight-medium;
+      
+      &.mat-mdc-floating-label.mat-focused {
+        color: $color-pokemon-blue;
+      }
+    }
+    
+    .mat-mdc-input-element {
+      font-family: $font-family-primary;
+      font-size: $font-size-base;
+      color: $color-gray-900;
+      
+      &::placeholder {
+        color: $color-gray-400;
+      }
+      
+      &:disabled {
+        color: $color-gray-500;
+        background-color: $color-gray-50;
+        cursor: not-allowed;
+      }
+    }
+    
+    .mat-mdc-form-field-error {
+      color: $color-error;
+      font-size: $font-size-sm;
+      font-weight: $font-weight-medium;
+    }
+    
+    .mat-mdc-icon-button {
+      color: $color-pokemon-blue;
+      transition: all $transition-normal;
+      
+      &:hover {
+        background-color: rgba($color-pokemon-blue, 0.1);
+      }
+      
+      &:disabled {
+        color: $color-gray-400;
+      }
+    }
+  }
+}
+
+// Clases utilitarias para formularios
+.form-field {
+  @include form-field-base;
+}
+
+.form-field--material {
+  @include material-form-field;
+}
+
+.form-container {
+  width: map-get(map-get($form-field-dimensions, 'form'), 'width');
+  margin: 0 auto;
+}
+
+.form-section {
+  width: map-get(map-get($form-field-dimensions, 'form'), 'width');
+  margin: 0 auto;
+} 
+
+::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--invalid):not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline .mat-mdc-notch-piece{
+    border-color: $color-pokemon-blue;
+  }
+  ::ng-deep .mdc-floating-label.mdc-floating-label.mat-mdc-floating-label.mdc-floating-label--float-above.mdc-floating-label--float-above{
+    color: $color-pokemon-blue !important;
+    font-weight: 700 !important;
+  }

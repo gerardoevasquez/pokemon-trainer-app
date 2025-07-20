@@ -1,0 +1,35 @@
+<div class="step-message">
+  
+  <!-- Back Button -->
+  <button 
+    *ngIf="message.showBackButton"
+    class="step-message__back-btn"
+    mat-icon-button
+    (click)="onBackClick()"
+    aria-label="Volver">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+
+  <!-- Message Content -->
+  <div class="step-message__content">
+    <h1 class="step-message__title">
+      {{ message.title }}
+    </h1>
+    
+    <p 
+      *ngIf="message.subtitle"
+      class="step-message__subtitle">
+      {{ message.subtitle }}
+    </p>
+  </div>
+
+  <!-- Edit Button -->
+  <button 
+    *ngIf="message.showEditButton"
+    class="step-message__edit-btn"
+    mat-button
+    (click)="onEditClick()">
+    {{ message.editButtonText }}
+  </button>
+
+</div>

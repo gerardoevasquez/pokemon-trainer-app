@@ -1,0 +1,36 @@
+<div class="loading-screen" *ngIf="isVisible">
+  
+  <!-- Pokémon Logo en la esquina superior izquierda -->
+  <div class="loading-screen__logo" *ngIf="config.showLogo">
+    <img 
+      src="assets/images/logos/pokemon-logo.svg" 
+      alt="Pokémon"
+      class="loading-screen__logo-img">
+  </div>
+  
+  <!-- Loading Container que toma toda la pantalla -->
+  <div class="loading-screen__container">
+    
+    <!-- Loading Animation con el GIF -->
+    <div class="loading-screen__animation">
+      <img 
+        src="assets/images/original-bd720cc572516fcc161d74534730b696.gif" 
+        alt="Loading Poké Ball"
+        class="loading-screen__pokeball">
+    </div>
+    
+    <!-- Loading Message con animación de puntos -->
+    <div class="loading-screen__message" *ngIf="config.message">
+      <h2 class="loading-screen__text">
+        Cargando
+        <span class="loading-screen__dots">
+          <span class="loading-screen__dot">.</span>
+          <span class="loading-screen__dot">.</span>
+          <span class="loading-screen__dot">.</span>
+        </span>
+      </h2>
+    </div>
+    
+  </div>
+  
+</div>

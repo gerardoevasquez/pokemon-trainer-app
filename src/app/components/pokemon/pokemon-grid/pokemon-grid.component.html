@@ -1,0 +1,36 @@
+<div class="pokemon-grid">
+  
+  <!-- Loading State -->
+  <div class="pokemon-grid__loading" *ngIf="isLoading">
+    <div class="pokemon-grid__loading-spinner"></div>
+    <p class="pokemon-grid__loading-text">Cargando Pokémon...</p>
+  </div>
+  
+  <!-- Empty State -->
+  <div class="pokemon-grid__empty" *ngIf="!isLoading && pokemonList.length === 0">
+    <mat-icon class="pokemon-grid__empty-icon">search_off</mat-icon>
+    <p class="pokemon-grid__empty-text">No se encontraron Pokémon</p>
+  </div>
+  
+  <!-- Pokemon Grid -->
+  <div class="pokemon-grid__container" *ngIf="!isLoading && pokemonList.length > 0">
+    <app-pokemon-card
+      *ngFor="let pokemonItem of pokemonList; trackBy: trackByPokemonId"
+      [pokemonItem]="pokemonItem"
+      [isSelected]="isPokemonSelected(pokemonItem)"
+      [isLoading]="isLoading"
+      [isDisabled]="isSelectionFull && !isPokemonSelected(pokemonItem)"
+      (pokemonClick)="onPokemonClick($event)"
+      (pokemonSelect)="onPokemonSelect($event)"
+      (pokemonRemove)="onPokemonRemove($event)">
+    </app-pokemon-card>
+  </div>
+  
+  <!-- Selection Info -->
+  <div class="pokemon-grid__info" *ngIf="showSelectionControls">
+    <p class="pokemon-grid__selection-text">
+      {{ selectedPokemon.length }} de {{ maxSelection }} Pokémon seleccionados
+    </p>
+  </div>
+  
+</div>

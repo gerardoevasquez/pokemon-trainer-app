@@ -1,0 +1,83 @@
+@use '../../../../styles/variables' as *;
+
+.step-message {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-md;
+  margin-bottom: $spacing-2xl;
+  width: 100%;
+
+  &__back-btn {
+    flex-shrink: 0;
+    color: $color-pokemon-blue;
+    margin-top: $spacing-xs;
+    
+    &:hover {
+      background-color: rgba($color-pokemon-blue, 0.1);
+    }
+  }
+
+  &__content {
+    flex: 1;
+    min-width: 0; // Para que el texto se ajuste correctamente
+  }
+
+  &__title {
+    font-family: $font-family-primary;
+    font-size: $font-size-4xl;
+    font-weight: $font-weight-bold;
+    color: $color-pokemon-blue;
+    margin: 0 0 $spacing-sm 0;
+    line-height: $line-height-tight;
+  }
+
+  &__subtitle {
+    font-family: $font-family-primary;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-normal;
+    color: $color-gray-600;
+    margin: 0;
+    line-height: $line-height-normal;
+  }
+
+  &__edit-btn {
+    flex-shrink: 0;
+    color: $color-pokemon-blue;
+    font-weight: $font-weight-medium;
+    border: 1px solid $color-pokemon-blue;
+    border-radius: $border-radius-md;
+    padding: $spacing-sm $spacing-md;
+    margin-top: $spacing-xs;
+    
+    &:hover {
+      background-color: $color-pokemon-blue;
+      color: $color-white;
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: $breakpoint-md) {
+  .step-message {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $spacing-sm;
+
+    &__back-btn {
+      margin-top: 0;
+    }
+
+    &__title {
+      font-size: $font-size-2xl;
+    }
+
+    &__subtitle {
+      font-size: $font-size-base;
+    }
+
+    &__edit-btn {
+      align-self: flex-start;
+      margin-top: $spacing-sm;
+    }
+  }
+} 

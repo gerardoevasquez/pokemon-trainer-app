@@ -1,0 +1,78 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/forms' as *;
+
+.pokemon-selection-page {
+  min-height: 100vh;
+  background: $color-gray-100;
+
+  .pokemon-selection__main {
+    padding: $spacing-xl 0;
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 $spacing-xl;
+    }
+
+    // Step Message - Div superior independiente
+    .pokemon-selection__step-message {
+      margin-bottom: $spacing-2xl;
+      width: 100%;
+    }
+
+    // Content Flex Container - Div inferior con flex
+    .pokemon-selection__content-flex {
+      display: flex;
+      gap: 68px; // Gap exacto del diseño
+      align-items: flex-start;
+      max-width: 1000px;
+      margin: 0 auto;
+
+      @media (max-width: $breakpoint-md) {
+        flex-direction: column;
+        gap: $spacing-xl;
+      }
+    }
+
+    .pokemon-selection__profile-section {
+      flex: 0 0 auto;
+      display: flex;
+      justify-content: center;
+    }
+
+    .pokemon-selection__pokemon-section {
+      flex: 1;
+      min-width: 0; // Para que el contenido se ajuste correctamente
+
+      .section-header {
+        margin-bottom: $spacing-lg;
+      }
+
+      .pokemon-selection__search {
+        margin-bottom: $spacing-lg;
+      }
+
+      .pokemon-selection__grid {
+        margin-bottom: $spacing-xl;
+      }
+
+      .pokemon-selection__button-container {
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: $breakpoint-md) {
+  .pokemon-selection__content-flex {
+    .pokemon-selection__profile-section {
+      order: 2; // En móviles, el perfil va abajo
+    }
+    
+    .pokemon-selection__pokemon-section {
+      order: 1; // En móviles, la selección va arriba
+    }
+  }
+} 

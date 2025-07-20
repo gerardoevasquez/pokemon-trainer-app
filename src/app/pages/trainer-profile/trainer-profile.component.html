@@ -1,0 +1,57 @@
+<div class="trainer-profile-page">
+  
+  <!-- Header -->
+  <app-app-header 
+    [showUserDropdown]="false"
+    [showSearch]="false">
+  </app-app-header>
+  
+  <!-- Main Content -->
+  <main class="trainer-profile__main">
+    <div class="container">
+      
+      <!-- Step Message - Div superior independiente -->
+      <div class="trainer-profile__step-message">
+        <app-step-message
+          [message]="{
+            title: '¡Hola! Configuremos tu perfil',
+            subtitle: 'Queremos conocerte mejor.',
+            showBackButton: true,
+            showEditButton: false
+          }"
+          (backClick)="onBackClick()">
+        </app-step-message>
+      </div>
+      
+      <!-- Content Flex Container - Div inferior con flex -->
+      <div class="trainer-profile__content-flex">
+        
+        <!-- Left Section - Profile Image -->
+        <div class="trainer-profile__image-section">
+          <app-profile-image-uploader
+            (imageUploaded)="onImageUploaded($event)"
+            (imageRemoved)="onImageRemoved()">
+          </app-profile-image-uploader>
+        </div>
+        
+        <!-- Right Section - Form -->
+        <div class="trainer-profile__form-section">
+          <div class="section-header">
+            <div class="section-title">Tu información</div>
+            <div class="section-subtitle">
+              Completa la siguiente información para completar tu perfil
+            </div>
+          </div>
+          
+          <app-trainer-profile-form
+            [hasProfileImage]="hasProfileImage"
+            (formSubmitted)="onFormSubmitted($event)">
+          </app-trainer-profile-form>
+        </div>
+        
+      </div>
+      
+    </div>
+  </main>
+  
+</div> 

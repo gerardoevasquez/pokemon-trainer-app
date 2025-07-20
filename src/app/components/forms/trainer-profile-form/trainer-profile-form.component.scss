@@ -1,0 +1,13 @@
+.trainer-profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 400px;
+  margin: 0 auto;
+  
+  &__button-container {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+  }
+}
