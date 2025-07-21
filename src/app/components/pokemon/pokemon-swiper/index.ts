@@ -1,0 +1,1 @@
+export { PokemonSwiperComponent } from './pokemon-swiper.component'; 

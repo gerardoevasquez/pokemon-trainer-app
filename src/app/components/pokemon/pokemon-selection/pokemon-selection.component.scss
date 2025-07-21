@@ -1,0 +1,81 @@
+@use '../../../../styles/variables' as *;
+
+.pokemon-selection {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm; // Reducido aún más para un layout muy compacto
+  height: 100%;
+  align-items: flex-start; // Cambiado de center a flex-start
+  
+  &__header {
+    text-align: left; // Cambiado de center a left
+    width: 100%;
+    flex-shrink: 0;
+    
+    .pokemon-selection__title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 30px;
+      font-weight: 400;
+      line-height: 48px;
+      color: #01426A; // Azul 00 exacto del diseño
+      margin: 0 0 0 0; // Reducido aún más
+      width: 349px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start; // Cambiado de center a flex-start
+    }
+    
+    .pokemon-selection__subtitle {
+      font-family: 'Poppins', sans-serif;
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 100%;
+      color: #868686; // Gris 40 exacto del diseño
+      margin: 0 0 0 0; // Reducido aún más
+      width: 521px;
+      height: 39px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start; // Cambiado de center a flex-start
+    }
+  }
+  
+  &__search {
+    width: 100%;
+    max-width: 521px; // Ancho exacto del diseño
+    flex-shrink: 0;
+    margin-bottom: 8px; // Gap mínimo
+  }
+  
+  &__grid {
+    display: flex;
+    justify-content: flex-start; // Cambiado de center a flex-start
+    width: 100%;
+    flex: 1;
+    min-height: 0; // Importante para que el flex funcione correctamente
+    max-height: 400px; // Aumentado considerando el gap de 8px
+  }
+  
+  &__info {
+    text-align: center;
+    flex-shrink: 0;
+    margin-top: 8px; // Gap mínimo
+    
+    .pokemon-selection__count {
+      font-family: $font-family-primary;
+      font-size: $font-size-sm;
+      color: $color-gray-600;
+      margin: 0;
+    }
+  }
+  
+  &__actions {
+    display: flex;
+    justify-content: center; // Centrado del botón
+    align-items: center;
+    padding: $spacing-md 0;
+    flex-shrink: 0;
+    width: 100%; // Asegurar ancho completo
+  }
+} 

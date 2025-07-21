@@ -5,63 +5,105 @@
   gap: $spacing-md;
   align-items: flex-start;
   
+  &__input-container {
+    position: relative;
+    width: 521px; // Ancho exacto del diseño
+    height: 36px; // Alto exacto del diseño
+    display: flex;
+    align-items: center;
+  }
+  
   &__input {
     flex: 1;
+    height: 100%;
+    padding: 8px 40px 8px 36px; // Más padding a la izquierda para el icono
+    border: 1px solid #e5e7eb; // Borde gris claro como en el diseño
+    border-radius: $border-radius-md;
+    background-color: #fafafa; // Fondo muy claro, casi blanco
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    color: #868686; // Gris como el placeholder
+    outline: none;
+    transition: all $transition-normal;
     
-    ::ng-deep {
-      .mat-mdc-form-field {
-        width: 100%;
-      }
-      
-      .mat-mdc-text-field-wrapper {
-        background-color: $color-white;
-        border-radius: $border-radius-md;
-        border: 1px solid $color-gray-300;
-        transition: all $transition-normal;
-        
-        &:hover {
-          border-color: $color-pokemon-blue;
-        }
-        
-        &.mat-focused {
-          border-color: $color-pokemon-blue;
-          box-shadow: 0 0 0 2px rgba($color-pokemon-blue, 0.1);
-        }
-      }
-      
-      .mat-mdc-form-field-label {
-        color: $color-gray-600;
-        font-family: $font-family-primary;
-        font-weight: $font-weight-medium;
-        
-        &.mat-mdc-floating-label.mat-focused {
-          color: $color-pokemon-blue;
-        }
-      }
-      
-      .mat-mdc-input-element {
-        font-family: $font-family-primary;
-        font-size: $font-size-base;
-        color: $color-gray-900;
-        
-        &::placeholder {
-          color: $color-gray-400;
-        }
-      }
-      
-      .mat-mdc-icon-button {
-        color: $color-gray-400;
-        transition: color $transition-normal;
-        
-        &:hover {
-          color: $color-pokemon-blue;
-          background-color: rgba($color-pokemon-blue, 0.1);
-        }
-        
-        &:disabled {
-          color: $color-gray-300;
-        }
-      }
+    &::placeholder {
+      color: #868686; // Gris claro como en el diseño
+    }
+    
+    &:hover {
+      border-color: #d1d5db; // Borde más oscuro en hover
+    }
+    
+    &:focus {
+      border-color: #01426A; // Borde azul cuando está enfocado
+      background-color: #f0f0f0; // Más oscuro cuando está enfocado
+    }
+    
+    &:disabled {
+      background-color: #f3f4f6;
+      color: #9ca3af;
+      cursor: not-allowed;
+    }
+  }
+  
+  &__search-btn {
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background: none;
+    border: none;
+    color: #01426A; // Azul más visible
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color $transition-normal;
+    z-index: 1;
+    
+    &:hover {
+      color: #01426A; // Mantener azul en hover
+    }
+    
+    &:disabled {
+      color: #d1d5db;
+      cursor: not-allowed;
+    }
+    
+    mat-icon {
+      font-size: 20px; // Icono más grande
+      width: 20px;
+      height: 20px;
+    }
+  }
+  
+  &__clear-btn {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background: none;
+    border: none;
+    color: #868686;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color $transition-normal;
+    z-index: 1;
+    
+    &:hover {
+      color: #01426A;
+    }
+    
+    mat-icon {
+      font-size: 16px;
+      width: 16px;
+      height: 16px;
     }
   }
   
@@ -112,6 +154,10 @@
   .search-bar {
     flex-direction: column;
     gap: $spacing-sm;
+    
+    &__input-container {
+      width: 100%;
+    }
     
     &__filter {
       min-width: 100%;

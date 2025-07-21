@@ -1,0 +1,74 @@
+<div class="trainer-summary">
+  
+    <!-- Header Section -->
+    <div class="trainer-summary__header">
+      <h2 class="trainer-summary__title">Mis Pokémon</h2>
+      <button 
+        mat-button 
+        class="trainer-summary__edit-button"
+        (click)="onEditProfile()">
+        <mat-icon>edit</mat-icon>
+        Editor
+      </button>
+    </div>
+    
+    <!-- Pokemon Team with Swiper -->
+    <div class="trainer-summary__team-container">
+      <swiper-container 
+        [navigation]="true"
+        [loop]="true"
+        class="trainer-summary__swiper">
+        
+        <swiper-slide 
+          *ngFor="let pokemon of selectedTeam; trackBy: trackByPokemonId"
+          class="trainer-summary__slide">
+          
+          <div class="pokemon-card">
+            
+            <!-- Left Side: Image, Name and Types -->
+            <div class="pokemon-card__left">
+              <div class="pokemon-card__image-container">
+                <img 
+                  [src]="getPokemonSprite(pokemon)" 
+                  [alt]="pokemon.name"
+                  class="pokemon-card__image">
+              </div>
+              
+              <div class="pokemon-card__info">
+                <h3 class="pokemon-card__name">{{ pokemon.name | titlecase }}</h3>
+                <p class="pokemon-card__types">
+                  {{ getPokemonTypes(pokemon).join('/') | titlecase }}
+                </p>
+              </div>
+            </div>
+            
+            <!-- Right Side: Stats -->
+            <div class="pokemon-card__right">
+              <div class="pokemon-card__stats">
+                <div 
+                  class="stat-item"
+                  *ngFor="let stat of pokemon.stats">
+                  
+                  <div class="stat-header">
+                    <span class="stat-name">{{ getStatName(stat.stat.name) }}</span>
+                    <span class="stat-value">{{ stat.base_stat }}</span>
+                  </div>
+                  
+                  <div class="stat-bar">
+                    <div 
+                      class="stat-bar__fill"
+                      [style.width.%]="getStatPercentage(stat.stat.name, stat.base_stat)"
+                      [style.background-color]="getStatColor(stat.stat.name)">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+          
+        </swiper-slide>
+        
+      </swiper-container>
+    </div>
+  </div>

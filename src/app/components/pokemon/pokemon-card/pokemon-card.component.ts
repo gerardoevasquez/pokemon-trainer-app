@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,19 +19,19 @@ import { PokemonService } from '../../../services/pokemon.service';
   templateUrl: './pokemon-card.component.html',
   styleUrls: ['./pokemon-card.component.scss']
 })
-export class PokemonCardComponent {
-  @Input() pokemonItem!: PokemonListItem;
+export class PokemonCardComponent implements OnInit {
+  @Input() pokemon!: PokemonListItem;
   @Input() isSelected: boolean = false;
   @Input() isLoading: boolean = false;
   @Input() isDisabled: boolean = false;
   
-  @Output() pokemonClick = new EventEmitter<PokemonListItem>();
-  @Output() pokemonSelect = new EventEmitter<PokemonListItem>();
-  @Output() pokemonRemove = new EventEmitter<PokemonListItem>();
+  @Output() pokemonSelected = new EventEmitter<PokemonListItem>();
+  @Output() pokemonDeselected = new EventEmitter<PokemonListItem>();
 
-  pokemon: Pokemon | null = null;
+  pokemonDetails: Pokemon | null = null;
   imageUrl: string = '';
   pokemonId: number = 0;
+  isLoadingDetails: boolean = true;
 
   constructor(private pokemonService: PokemonService) {}
 
@@ -42,43 +42,45 @@ export class PokemonCardComponent {
 
   private extractPokemonId(): void {
     // Extraer ID de la URL: https://pokeapi.co/api/v2/pokemon/1/
-    const urlParts = this.pokemonItem.url.split('/');
+    const urlParts = this.pokemon.url.split('/');
     this.pokemonId = parseInt(urlParts[urlParts.length - 2]);
+    console.log('🎴 PokemonCard - ID extraído:', this.pokemonId, 'para:', this.pokemon.name);
   }
 
   private loadPokemonDetails(): void {
+    this.isLoadingDetails = true;
+    console.log('🎴 PokemonCard - Cargando detalles para ID:', this.pokemonId, 'nombre:', this.pokemon.name, 'URL:', this.pokemon.url);
     this.pokemonService.getPokemonById(this.pokemonId).subscribe({
       next: (pokemon) => {
-        this.pokemon = pokemon;
+        this.pokemonDetails = pokemon;
         this.imageUrl = this.pokemonService.getPokemonSprite(pokemon);
+        this.isLoadingDetails = false;
+        console.log('🎴 PokemonCard - Detalles cargados:', pokemon.name, 'ID:', pokemon.id, 'Imagen:', this.imageUrl, 'para tarjeta:', this.pokemon.name);
+        console.log('🎴 PokemonCard - Sprites disponibles:', pokemon.sprites);
       },
       error: (error) => {
         console.error('Error loading Pokemon details:', error);
         this.imageUrl = 'assets/images/pokemon/pokemon-placeholder.png';
+        this.isLoadingDetails = false;
       }
     });
   }
 
   onCardClick(): void {
+    console.log('🎴 PokemonCard - clicked:', this.pokemon.name, 'disabled:', this.isDisabled, 'isSelected:', this.isSelected);
     if (!this.isDisabled) {
-      this.pokemonClick.emit(this.pokemonItem);
+      if (this.isSelected) {
+        this.pokemonDeselected.emit(this.pokemon);
+      } else {
+        this.pokemonSelected.emit(this.pokemon);
+      }
+    } else {
+      console.log('🎴 PokemonCard - Card is disabled, click ignored');
     }
-  }
-
-  onSelectClick(event: Event): void {
-    event.stopPropagation();
-    if (!this.isDisabled) {
-      this.pokemonSelect.emit(this.pokemonItem);
-    }
-  }
-
-  onRemoveClick(event: Event): void {
-    event.stopPropagation();
-    this.pokemonRemove.emit(this.pokemonItem);
   }
 
   getPokemonTypes(): string[] {
-    return this.pokemon ? this.pokemonService.getPokemonTypes(this.pokemon) : [];
+    return this.pokemonDetails ? this.pokemonService.getPokemonTypes(this.pokemonDetails) : [];
   }
 
   getTypeColor(type: string): string {

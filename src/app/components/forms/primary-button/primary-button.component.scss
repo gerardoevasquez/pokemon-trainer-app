@@ -11,6 +11,7 @@
   transition: all $transition-normal;
   text-transform: none;
   letter-spacing: 0.5px;
+  width: 100%;
   
   &--small {
     padding: $spacing-sm $spacing-md;
@@ -27,18 +28,20 @@
   &--large {
     padding: $spacing-lg $spacing-xl;
     font-size: $font-size-lg;
-    min-height: 56px;
+    min-height: 50px;
+    width: 222px;
   }
   
   ::ng-deep {
     .mat-mdc-raised-button {
-      background-color: $color-pokemon-blue !important;
+      background-color: #01426A !important;
       color: $color-white !important;
       border: none !important;
       box-shadow: $shadow-md !important;
+      border-radius: 10px !important;
       
       &:hover:not(:disabled) {
-        background-color: darken($color-pokemon-blue, 10%) !important;
+        background-color: #013a5a !important;
         box-shadow: $shadow-lg !important;
         transform: translateY(-1px);
       }
@@ -49,7 +52,7 @@
       }
       
       &:disabled {
-        background-color: $color-gray-400 !important;
+        background-color: #E6E6E6 !important;
         color: $color-gray-600 !important;
         box-shadow: none !important;
         cursor: not-allowed;

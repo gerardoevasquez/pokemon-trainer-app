@@ -1,0 +1,1 @@
+export { PokemonTeamSwiperComponent } from './pokemon-team-swiper.component'; 

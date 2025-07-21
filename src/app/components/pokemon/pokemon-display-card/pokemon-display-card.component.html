@@ -1,0 +1,46 @@
+<div class="pokemon-display-card">
+  
+  <!-- Pokemon Image and Basic Info -->
+  <div class="pokemon-display-card__header">
+    <div class="pokemon-display-card__image-container">
+      <img 
+        [src]="getPokemonSprite()" 
+        [alt]="pokemon.name"
+        class="pokemon-display-card__image">
+    </div>
+    
+    <div class="pokemon-display-card__info">
+      <div class="pokemon-display-card__number">#{{ pokemon.id.toString().padStart(3, '0') }}</div>
+      <h3 class="pokemon-display-card__name">{{ pokemon.name | titlecase }}</h3>
+      
+      <!-- Pokemon Types -->
+      <div class="pokemon-display-card__types">
+        <span 
+          *ngFor="let type of getPokemonTypes()"
+          class="pokemon-display-card__type"
+          [style.background-color]="getTypeColor(type)">
+          {{ type | titlecase }}
+        </span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Pokemon Stats -->
+  <div class="pokemon-display-card__stats">
+    <h4 class="pokemon-display-card__stats-title">Estadísticas</h4>
+    
+    <div class="pokemon-display-card__stat-item" *ngFor="let stat of pokemon.stats">
+      <div class="pokemon-display-card__stat-header">
+        <span class="pokemon-display-card__stat-name">{{ getStatName(stat.stat.name) }}</span>
+        <span class="pokemon-display-card__stat-value">{{ stat.base_stat }}</span>
+      </div>
+      
+      <mat-progress-bar
+        class="pokemon-display-card__stat-bar"
+        [value]="getStatPercentage(stat.stat.name, stat.base_stat)"
+        [color]="'primary'">
+      </mat-progress-bar>
+    </div>
+  </div>
+  
+</div> 

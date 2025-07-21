@@ -1,0 +1,40 @@
+<div class="pokemon-swiper">
+  
+    <!-- Loading State -->
+    <div class="pokemon-swiper__loading" *ngIf="isLoading">
+      <div class="pokemon-swiper__loading-spinner"></div>
+      <p class="pokemon-swiper__loading-text">Cargando Pokémon...</p>
+    </div>
+    
+    <!-- Empty State -->
+    <div class="pokemon-swiper__empty" *ngIf="!isLoading && pokemonList.length === 0">
+      <mat-icon class="pokemon-swiper__empty-icon">search_off</mat-icon>
+      <p class="pokemon-swiper__empty-text">No se encontraron Pokémon</p>
+    </div>
+    
+    <!-- Pokemon Swiper -->
+    <div class="pokemon-swiper__container" *ngIf="!isLoading && pokemonList.length > 0">
+      <swiper-container
+        [attr.slides-per-view]="swiperConfig.slidesPerView"
+        [attr.space-between]="swiperConfig.spaceBetween"
+        [attr.navigation]="swiperConfig.navigation"
+        [attr.pagination]="swiperConfig.pagination.clickable"
+        [attr.grid-rows]="swiperConfig.grid.rows"
+        [attr.grid-fill]="swiperConfig.grid.fill"
+        class="pokemon-swiper__swiper">
+        
+        <swiper-slide *ngFor="let pokemonItem of pokemonList; trackBy: trackByPokemonId">
+          <app-pokemon-card
+            [pokemon]="pokemonItem"
+            [isSelected]="isPokemonSelected(pokemonItem)"
+            [isLoading]="isLoading"
+            [isDisabled]="isSelectionFull && !isPokemonSelected(pokemonItem)"
+            (pokemonSelected)="onPokemonSelected($event)"
+            (pokemonDeselected)="onPokemonDeselected($event)">
+          </app-pokemon-card>
+        </swiper-slide>
+        
+      </swiper-container>
+    </div>
+    
+  </div>

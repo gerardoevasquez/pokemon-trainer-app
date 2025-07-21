@@ -1,8 +1,9 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatIconModule } from '@angular/material/icon';
 
-import { PokemonCardComponent } from '../pokemon-card';
+import { PokemonCardComponent } from '../pokemon-card/pokemon-card.component';
 import { PokemonListItem, Pokemon } from '../../../models/pokemon.model';
 
 @Component({
@@ -10,61 +11,77 @@ import { PokemonListItem, Pokemon } from '../../../models/pokemon.model';
   standalone: true,
   imports: [
     CommonModule,
+    ScrollingModule,
     MatIconModule,
     PokemonCardComponent
   ],
   templateUrl: './pokemon-grid.component.html',
   styleUrls: ['./pokemon-grid.component.scss']
 })
-export class PokemonGridComponent {
+export class PokemonGridComponent implements OnInit, OnDestroy, OnChanges {
   @Input() pokemonList: PokemonListItem[] = [];
   @Input() selectedPokemon: Pokemon[] = [];
-  @Input() isLoading: boolean = false;
+  @Input() loading: boolean = false;
   @Input() maxSelection: number = 3;
-  @Input() showSelectionControls: boolean = true;
   
-  @Output() pokemonSelected = new EventEmitter<Pokemon>();
-  @Output() pokemonRemoved = new EventEmitter<number>();
+  @Output() pokemonSelected = new EventEmitter<PokemonListItem>();
+  @Output() pokemonDeselected = new EventEmitter<PokemonListItem>();
 
-  get isSelectionFull(): boolean {
+  ngOnInit(): void {
+    console.log('🎮 PokemonGrid - ngOnInit:', this.pokemonList.length);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['pokemonList'] && this.pokemonList) {
+      console.log('🎴 PokemonGrid - Lista actualizada:', this.pokemonList.length, 'Pokémon');
+      console.log('🎴 PokemonGrid - Primeros 3 Pokémon:', this.pokemonList.slice(0, 3).map(p => ({ name: p.name, url: p.url })));
+    }
+  }
+
+  ngOnDestroy(): void {
+    // Cleanup if needed
+  }
+
+  isPokemonSelected(pokemonId: number): boolean {
+    return this.selectedPokemon.some(pokemon => pokemon.id === pokemonId);
+  }
+
+  isSelectionFull(): boolean {
     return this.selectedPokemon.length >= this.maxSelection;
   }
 
-  isPokemonSelected(pokemonItem: PokemonListItem): boolean {
-    return this.selectedPokemon.some(pokemon => {
-      const urlParts = pokemonItem.url.split('/');
-      const pokemonId = parseInt(urlParts[urlParts.length - 2]);
-      return pokemon.id === pokemonId;
-    });
+  onPokemonSelected(pokemon: PokemonListItem): void {
+    console.log('🎮 PokemonGrid - onPokemonSelected:', pokemon);
+    this.pokemonSelected.emit(pokemon);
   }
 
-  onPokemonSelect(pokemonItem: PokemonListItem): void {
-    if (this.isSelectionFull) {
-      return;
-    }
-    
-    // Emitir el evento para que el componente padre maneje la lógica
-    // El componente padre deberá cargar los detalles del Pokémon
-    this.pokemonSelected.emit(pokemonItem as any);
+  onPokemonDeselected(pokemon: PokemonListItem): void {
+    console.log('🎮 PokemonGrid - onPokemonDeselected:', pokemon);
+    this.pokemonDeselected.emit(pokemon);
   }
 
-  onPokemonRemove(pokemonItem: PokemonListItem): void {
-    const urlParts = pokemonItem.url.split('/');
-    const pokemonId = parseInt(urlParts[urlParts.length - 2]);
-    this.pokemonRemoved.emit(pokemonId);
+  trackByPokemonId = (index: number, pokemon: PokemonListItem): string => {
+    const urlParts = pokemon.url.split('/');
+    const id = urlParts[urlParts.length - 2];
+    return `${id}-${pokemon.name}`;
   }
 
-  onPokemonClick(pokemonItem: PokemonListItem): void {
-    // Opcional: Mostrar detalles del Pokémon en un modal
-    console.log('Pokemon clicked:', pokemonItem);
-  }
-
-  getPokemonId(pokemonItem: PokemonListItem): number {
-    const urlParts = pokemonItem.url.split('/');
+  getPokemonId(pokemon: PokemonListItem): number {
+    const urlParts = pokemon.url.split('/');
     return parseInt(urlParts[urlParts.length - 2]);
   }
 
-  trackByPokemonId(index: number, pokemonItem: PokemonListItem): number {
-    return this.getPokemonId(pokemonItem);
+  getGridRows(): PokemonListItem[][] {
+    const rows: PokemonListItem[][] = [];
+    for (let i = 0; i < this.pokemonList.length; i += 3) {
+      rows.push(this.pokemonList.slice(i, i + 3));
+    }
+    console.log('🎴 PokemonGrid - Filas creadas:', rows.length, 'filas');
+    console.log('🎴 PokemonGrid - Primera fila:', rows[0]?.map(p => p.name));
+    return rows;
+  }
+
+  trackByRow = (index: number, row: PokemonListItem[]): number => {
+    return index;
   }
 } 

@@ -22,6 +22,8 @@ export class TrainerProfileFormComponent implements OnInit {
   @Input() hasProfileImage: boolean = false;
   @Output() formSubmitted = new EventEmitter<any>();
   
+
+  
   trainerForm = new FormGroup({
     name: new FormControl('', Validators.required),
     hobby: new FormControl(''),
@@ -86,8 +88,20 @@ export class TrainerProfileFormComponent implements OnInit {
   }
   
   get isFormValid(): boolean {
-    return this.trainerForm.valid && 
-           this.hasValidBirthday && 
-           this.hasProfileImage;
+    const nameValid = this.trainerForm.get('name')?.valid || false;
+    const birthdayValid = this.trainerForm.get('birthday')?.valid || false;
+    const documentValid = this.hasValidBirthday ? (this.trainerForm.get('document')?.valid || false) : true;
+    
+    const isValid = nameValid && birthdayValid && documentValid;
+    
+    console.log('Form validation debug:', {
+      nameValid,
+      birthdayValid,
+      documentValid,
+      hasValidBirthday: this.hasValidBirthday,
+      isValid
+    });
+    
+    return isValid;
   }
 } 

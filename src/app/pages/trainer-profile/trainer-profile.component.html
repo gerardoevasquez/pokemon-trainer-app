@@ -2,56 +2,75 @@
   
   <!-- Header -->
   <app-app-header 
-    [showUserDropdown]="false"
-    [showSearch]="false">
+    [showUserDropdown]="currentStep === 3"
+    [showSearch]="currentStep === 3">
   </app-app-header>
   
   <!-- Main Content -->
   <main class="trainer-profile__main">
     <div class="container">
       
-      <!-- Step Message - Div superior independiente -->
-      <div class="trainer-profile__step-message">
-        <app-step-message
-          [message]="{
-            title: '¡Hola! Configuremos tu perfil',
-            subtitle: 'Queremos conocerte mejor.',
-            showBackButton: true,
-            showEditButton: false
-          }"
-          (backClick)="onBackClick()">
-        </app-step-message>
-      </div>
+      <!-- Step Message -->
+      <app-step-message
+        [message]="stepMessage"
+        (backClick)="onBackClick()"
+        (editClick)="onEditProfile()">
+      </app-step-message>
       
-      <!-- Content Flex Container - Div inferior con flex -->
-      <div class="trainer-profile__content-flex">
+      <!-- Content Grid -->
+      <div class="trainer-profile__content">
         
-        <!-- Left Section - Profile Image -->
-        <div class="trainer-profile__image-section">
+        <!-- Left Column: Profile Image Uploader (reutilizable) -->
+        <div class="trainer-profile__left">
           <app-profile-image-uploader
+            [profileData]="profileData"
+            [mode]="profileMode"
             (imageUploaded)="onImageUploaded($event)"
             (imageRemoved)="onImageRemoved()">
           </app-profile-image-uploader>
         </div>
         
-        <!-- Right Section - Form -->
-        <div class="trainer-profile__form-section">
-          <div class="section-header">
-            <div class="section-title">Tu información</div>
-            <div class="section-subtitle">
-              Completa la siguiente información para completar tu perfil
-            </div>
-          </div>
-          
-          <app-trainer-profile-form
-            [hasProfileImage]="hasProfileImage"
-            (formSubmitted)="onFormSubmitted($event)">
-          </app-trainer-profile-form>
+        <!-- Right Column: Changes based on step -->
+        <div class="trainer-profile__right">
+          <ng-container [ngSwitch]="currentStep">
+            
+            <!-- Step 1: Profile Form -->
+            <app-trainer-profile-form
+              *ngSwitchCase="1"
+              [hasProfileImage]="!!profileData?.imageUrl"
+              (formSubmitted)="onProfileCompleted($event)">
+            </app-trainer-profile-form>
+            
+            <!-- Step 2: Pokemon Selection -->
+            <app-pokemon-selection
+              *ngSwitchCase="2"
+              [profileData]="profileData"
+              (teamSelected)="onTeamSelected($event)">
+            </app-pokemon-selection>
+            
+            <!-- Step 3: Trainer Summary -->
+            <app-trainer-summary
+              *ngSwitchCase="3"
+              [profileData]="profileData"
+              [selectedTeam]="selectedTeam"
+              (editProfile)="onEditProfile()">
+            </app-trainer-summary>
+            
+          </ng-container>
         </div>
         
       </div>
       
     </div>
   </main>
+  
+  <!-- Loading Screen -->
+  <app-loading-screen 
+    [isVisible]="isLoading"
+    [config]="{
+      message: 'Cargando...',
+      showLogo: true
+    }">
+  </app-loading-screen>
   
 </div> 

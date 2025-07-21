@@ -1,0 +1,26 @@
+<div class="pokemon-team-swiper">
+  
+  <!-- Empty State -->
+  <div class="pokemon-team-swiper__empty" *ngIf="pokemonTeam.length === 0">
+    <p class="pokemon-team-swiper__empty-text">No hay Pokémon en tu equipo</p>
+  </div>
+  
+  <!-- Pokemon Team Swiper -->
+  <div class="pokemon-team-swiper__container" *ngIf="pokemonTeam.length > 0">
+    <swiper-container
+      [attr.slides-per-view]="swiperConfig.slidesPerView"
+      [attr.space-between]="swiperConfig.spaceBetween"
+      [attr.navigation]="swiperConfig.navigation"
+      [attr.pagination]="swiperConfig.pagination.clickable"
+      class="pokemon-team-swiper__swiper">
+      
+      <swiper-slide *ngFor="let pokemon of pokemonTeam">
+        <app-pokemon-display-card
+          [pokemon]="pokemon">
+        </app-pokemon-display-card>
+      </swiper-slide>
+      
+    </swiper-container>
+  </div>
+  
+</div> 

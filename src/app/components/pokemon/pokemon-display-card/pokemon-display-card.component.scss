@@ -1,0 +1,137 @@
+@use '../../../../styles/variables' as *;
+
+.pokemon-display-card {
+  background: $color-white;
+  border-radius: $border-radius-lg;
+  border: 2px solid $color-gray-200;
+  padding: $spacing-lg;
+  box-shadow: $shadow-md;
+  transition: all $transition-normal;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-lg;
+    border-color: $color-pokemon-blue;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+    margin-bottom: $spacing-lg;
+  }
+
+  &__image-container {
+    flex-shrink: 0;
+  }
+
+  &__image {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+  }
+
+  &__info {
+    flex: 1;
+  }
+
+  &__number {
+    font-size: $font-size-sm;
+    color: $color-gray-500;
+    font-weight: $font-weight-medium;
+    margin-bottom: $spacing-xs;
+  }
+
+  &__name {
+    font-family: $font-family-primary;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $color-gray-900;
+    margin: 0 0 $spacing-sm 0;
+  }
+
+  &__types {
+    display: flex;
+    gap: $spacing-xs;
+    flex-wrap: wrap;
+  }
+
+  &__type {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    color: $color-white;
+    padding: 4px $spacing-sm;
+    border-radius: $border-radius-sm;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  &__stats {
+    flex: 1;
+  }
+
+  &__stats-title {
+    font-family: $font-family-primary;
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $color-gray-800;
+    margin: 0 0 $spacing-md 0;
+    text-align: center;
+  }
+
+  &__stat-item {
+    margin-bottom: $spacing-sm;
+  }
+
+  &__stat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-xs;
+  }
+
+  &__stat-name {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-gray-700;
+  }
+
+  &__stat-value {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    color: $color-pokemon-blue;
+  }
+
+  &__stat-bar {
+    height: 8px;
+    border-radius: $border-radius-sm;
+    
+    ::ng-deep .mat-mdc-progress-bar-fill::after {
+      background-color: $color-pokemon-blue;
+    }
+  }
+}
+
+// Responsive
+@media (max-width: $breakpoint-md) {
+  .pokemon-display-card {
+    padding: $spacing-md;
+    
+    &__image {
+      width: 60px;
+      height: 60px;
+    }
+    
+    &__name {
+      font-size: $font-size-base;
+    }
+    
+    &__type {
+      font-size: 10px;
+      padding: 2px $spacing-xs;
+    }
+  }
+} 

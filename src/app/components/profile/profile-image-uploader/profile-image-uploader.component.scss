@@ -35,7 +35,7 @@
         height: 269px;
         border-radius: 50%;
         background: #E7EFF5;
-        border: 14px solid #fff;
+        border: 14px solid #FFFFFF;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -44,7 +44,7 @@
         position: relative;
 
         &.empty-state {
-          background: #f0f0f0;
+          background: #E7EFF5;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -52,12 +52,12 @@
           transition: background-color 0.3s ease;
 
           &:hover {
-            background: #e0e0e0;
+            background: #D7E7F5;
           }
 
           .placeholder-icon {
             font-size: 6rem;
-            color: #b0b8c1; // Un gris claro, puedes ajustar el tono si lo necesitas
+            color: #9BB8D3;
             width: 6rem;
             height: 6rem;
           }
@@ -68,6 +68,7 @@
           height: 100%;
           object-fit: cover;
           border-radius: 50%;
+          display: block;
         }
 
         .remove-button {
@@ -189,6 +190,12 @@
       text-overflow: ellipsis;
       flex: 1; // Toma el espacio disponible
       min-width: 0; // Permite que se recorte
+      cursor: pointer;
+      transition: color 0.3s ease;
+      
+      &:hover {
+        color: #1a5a8a;
+      }
     }
 
     .delete-button {
@@ -199,3 +206,5 @@
     }
   }
 }
+
+

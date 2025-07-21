@@ -1,0 +1,1 @@
+export { PokemonDisplayCardComponent } from './pokemon-display-card.component'; 

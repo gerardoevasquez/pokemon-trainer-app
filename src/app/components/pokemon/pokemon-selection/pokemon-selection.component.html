@@ -1,0 +1,39 @@
+<div class="pokemon-selection">
+  
+  <!-- Header Section -->
+  <div class="pokemon-selection__header">
+    <h2 class="pokemon-selection__title">Pokémon</h2>
+    <p class="pokemon-selection__subtitle">
+      Selecciona 3 Pokémon para que sean parte de tu equipo
+    </p>
+  </div>
+  
+  <!-- Search Bar -->
+  <div class="pokemon-selection__search">
+    <app-search-bar
+      placeholder="Buscar por índice, nombre..."
+      (search)="onSearchChange($event.query)">
+    </app-search-bar>
+  </div>
+  
+  <!-- Pokemon Grid -->
+  <div class="pokemon-selection__grid">
+    <app-pokemon-grid
+      [pokemonList]="filteredPokemon"
+      [selectedPokemon]="selectedPokemon"
+      [loading]="isLoading"
+      (pokemonSelected)="onPokemonSelected($event)"
+      (pokemonDeselected)="onPokemonDeselected($event)">
+    </app-pokemon-grid>
+  </div>
+  
+  <!-- Save Button -->
+  <div class="pokemon-selection__actions">
+    <app-primary-button
+      [disabled]="!canSave"
+      (click)="onSaveTeam()">
+      Guardar
+    </app-primary-button>
+  </div>
+  
+</div> 

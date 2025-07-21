@@ -1,13 +1,53 @@
+@use '../../../../styles/variables' as *;
+
 .trainer-profile-form {
+  width: $form-width;
+  height: 523px;
+  background: transparent;
+  padding: 32px;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  max-width: 400px;
-  margin: 0 auto;
+  gap: 15px;
+  box-sizing: border-box;
+  
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    
+    .trainer-profile-form__title {
+      font-family: $font-family-primary;
+      font-size: 30px;
+      font-weight: 400;
+      color: #01426A;
+      margin: 0;
+      line-height: 48px;
+    }
+    
+    .trainer-profile-form__subtitle {
+      font-family: $font-family-primary;
+      font-size: 18px;
+      font-weight: 400;
+      color: #868686;
+      margin: 0;
+      line-height: 100%;
+    }
+  }
+  
+  &__fields {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    
+    app-input-field,
+    app-date-picker-field {
+      width: 100%;
+    }
+  }
   
   &__button-container {
-    margin-top: 2rem;
     display: flex;
     justify-content: center;
+    margin-top: 8px;
   }
 }

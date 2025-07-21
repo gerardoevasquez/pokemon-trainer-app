@@ -1,14 +1,18 @@
 <div class="search-bar">
   
-  <mat-form-field 
-    class="search-bar__input"
-    [appearance]="'outline'"
-    [floatLabel]="'always'">
-    
-    <mat-label>Buscar</mat-label>
+  <div class="search-bar__input-container">
+    <button 
+      class="search-bar__search-btn"
+      type="button"
+      [disabled]="disabled || loading"
+      (click)="onSearch()"
+      aria-label="Buscar">
+      <mat-icon>search</mat-icon>
+    </button>
     
     <input 
-      matInput
+      class="search-bar__input"
+      type="text"
       [placeholder]="placeholder"
       [disabled]="disabled"
       [value]="value"
@@ -18,25 +22,13 @@
     
     <button 
       *ngIf="value"
-      matSuffix 
-      mat-icon-button 
+      class="search-bar__clear-btn"
       type="button"
       (click)="clearSearch()"
       aria-label="Limpiar búsqueda">
       <mat-icon>close</mat-icon>
     </button>
-    
-    <button 
-      matSuffix 
-      mat-icon-button 
-      type="button"
-      [disabled]="disabled || loading"
-      (click)="onSearch()"
-      aria-label="Buscar">
-      <mat-icon>search</mat-icon>
-    </button>
-    
-  </mat-form-field>
+  </div>
   
   <mat-form-field 
     *ngIf="showFilters && filters.length > 0"

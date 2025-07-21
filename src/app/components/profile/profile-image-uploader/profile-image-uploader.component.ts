@@ -10,10 +10,12 @@ export interface ProfileData {
   age: number;
   document: string;
   imageUrl?: string;
-  birthDate?: Date; // Agregar esta línea
-  selectedPokemon?: any[]; // Para el paso 3
-  isCompleted?: boolean; // Para mostrar medallita
+  birthDate?: Date;
+  selectedPokemon?: any[];
+  isCompleted?: boolean;
 }
+
+export type ProfileMode = 'upload' | 'display' | 'final';
 
 @Component({
   selector: 'app-profile-image-uploader',
@@ -29,13 +31,42 @@ export interface ProfileData {
 })
 export class ProfileImageUploaderComponent {
   @Input() profileData?: ProfileData;
-  @Input() isEditMode: boolean = true;
+  @Input() mode: ProfileMode = 'upload'; // 'upload' | 'display' | 'final'
   @Output() imageUploaded = new EventEmitter<File>();
   @Output() imageRemoved = new EventEmitter<void>();
   @ViewChild('fileInput') fileInput!: ElementRef;
 
   selectedImage: string | null = null;
   selectedFile: File | null = null;
+
+  // Getters para determinar el comportamiento
+  get isUploadMode(): boolean {
+    return this.mode === 'upload';
+  }
+
+  get isDisplayMode(): boolean {
+    return this.mode === 'display';
+  }
+
+  get isFinalMode(): boolean {
+    return this.mode === 'final';
+  }
+
+  get showUploadButton(): boolean {
+    const result = this.isUploadMode && !this.hasImage();
+    console.log('showUploadButton:', result, 'isUploadMode:', this.isUploadMode, 'hasImage:', this.hasImage());
+    return result;
+  }
+
+  get showImagePreview(): boolean {
+    const result = this.hasImage();
+    console.log('showImagePreview:', result, 'selectedImage:', this.selectedImage, 'profileData.imageUrl:', this.profileData?.imageUrl);
+    return result;
+  }
+
+  get showProfileData(): boolean {
+    return this.isDisplayMode || this.isFinalMode;
+  }
 
   onFileSelected(event: any) {
     const file = event.target.files[0];
@@ -58,7 +89,6 @@ export class ProfileImageUploaderComponent {
     this.selectedImage = null;
     this.selectedFile = null;
     this.imageRemoved.emit();
-    // Limpiar el input para permitir seleccionar el mismo archivo
     if (this.fileInput) {
       this.fileInput.nativeElement.value = '';
     }
@@ -89,13 +119,16 @@ export class ProfileImageUploaderComponent {
 
   getFileName(): string {
     if (this.selectedFile) {
+      console.log('Selected file name:', this.selectedFile.name);
       return this.selectedFile.name;
     }
     if (this.profileData?.imageUrl) {
-      // Extraer nombre del archivo de la URL
       const urlParts = this.profileData.imageUrl.split('/');
-      return urlParts[urlParts.length - 1] || 'Imagen de perfil';
+      const fileName = urlParts[urlParts.length - 1] || 'Imagen de perfil';
+      console.log('Profile image URL name:', fileName);
+      return fileName;
     }
+    console.log('No file name found, returning default');
     return 'Imagen de perfil';
   }
 

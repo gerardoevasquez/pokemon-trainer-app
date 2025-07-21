@@ -178,4 +178,82 @@ html, body {
 // Import Material theme styles
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 
+// Swiper styles
+@import 'swiper/css';
+@import 'swiper/css/pagination';
+@import 'swiper/css/navigation';
+
+// Custom Swiper styles
+swiper-container {
+  width: 100%;
+  height: 100%;
+}
+
+swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Horizontal Swiper styles (default)
+swiper-container:not([direction="vertical"]) {
+  .swiper-button-next {
+    right: 10px;
+  }
+  
+  .swiper-button-prev {
+    left: 10px;
+  }
+  
+  .swiper-pagination {
+    bottom: 10px;
+  }
+}
+
+// Vertical Swiper styles
+swiper-container[direction="vertical"] {
+  .swiper-button-next {
+    transform: rotate(90deg);
+    top: 10px;
+    bottom: auto;
+    right: auto;
+  }
+  
+  .swiper-button-prev {
+    transform: rotate(90deg);
+    bottom: 10px;
+    top: auto;
+    left: auto;
+  }
+  
+  .swiper-pagination {
+    right: 10px;
+    left: auto;
+    width: auto;
+    bottom: auto;
+  }
+  
+  .swiper-pagination-bullet {
+    margin: 0 4px;
+  }
+}
+
+.swiper-pagination-bullet {
+  background: $color-pokemon-blue;
+  opacity: 0.5;
+  
+  &-active {
+    opacity: 1;
+  }
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: $color-pokemon-blue;
+  
+  &:after {
+    font-size: 20px;
+  }
+}
+
 

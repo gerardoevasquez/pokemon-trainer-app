@@ -1,36 +1,34 @@
 <div class="pokemon-grid">
-  
   <!-- Loading State -->
-  <div class="pokemon-grid__loading" *ngIf="isLoading">
+  <div *ngIf="loading" class="pokemon-grid__loading">
     <div class="pokemon-grid__loading-spinner"></div>
     <p class="pokemon-grid__loading-text">Cargando Pokémon...</p>
   </div>
-  
+
   <!-- Empty State -->
-  <div class="pokemon-grid__empty" *ngIf="!isLoading && pokemonList.length === 0">
-    <mat-icon class="pokemon-grid__empty-icon">search_off</mat-icon>
+  <div *ngIf="!loading && (!pokemonList || pokemonList.length === 0)" class="pokemon-grid__empty">
+    <span class="pokemon-grid__empty-icon">🔍</span>
     <p class="pokemon-grid__empty-text">No se encontraron Pokémon</p>
   </div>
-  
-  <!-- Pokemon Grid -->
-  <div class="pokemon-grid__container" *ngIf="!isLoading && pokemonList.length > 0">
-    <app-pokemon-card
-      *ngFor="let pokemonItem of pokemonList; trackBy: trackByPokemonId"
-      [pokemonItem]="pokemonItem"
-      [isSelected]="isPokemonSelected(pokemonItem)"
-      [isLoading]="isLoading"
-      [isDisabled]="isSelectionFull && !isPokemonSelected(pokemonItem)"
-      (pokemonClick)="onPokemonClick($event)"
-      (pokemonSelect)="onPokemonSelect($event)"
-      (pokemonRemove)="onPokemonRemove($event)">
-    </app-pokemon-card>
+
+  <!-- Pokemon Grid with Virtual Scroll -->
+  <div *ngIf="!loading && pokemonList && pokemonList.length > 0" class="pokemon-grid__container">
+    <cdk-virtual-scroll-viewport 
+      itemSize="120" 
+      class="pokemon-grid__viewport"
+      [style.height.px]="420">
+      <div class="pokemon-grid__content">
+        <div class="pokemon-grid__row" *cdkVirtualFor="let row of getGridRows(); trackBy: trackByRow">
+          <app-pokemon-card
+            *ngFor="let pokemon of row; trackBy: trackByPokemonId"
+            [pokemon]="pokemon"
+            [isSelected]="isPokemonSelected(getPokemonId(pokemon))"
+            [isDisabled]="isSelectionFull() && !isPokemonSelected(getPokemonId(pokemon))"
+            (pokemonSelected)="onPokemonSelected(pokemon)"
+            (pokemonDeselected)="onPokemonDeselected(pokemon)">
+          </app-pokemon-card>
+        </div>
+      </div>
+    </cdk-virtual-scroll-viewport>
   </div>
-  
-  <!-- Selection Info -->
-  <div class="pokemon-grid__info" *ngIf="showSelectionControls">
-    <p class="pokemon-grid__selection-text">
-      {{ selectedPokemon.length }} de {{ maxSelection }} Pokémon seleccionados
-    </p>
-  </div>
-  
 </div>

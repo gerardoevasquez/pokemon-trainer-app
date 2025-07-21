@@ -3,8 +3,18 @@
   (ngSubmit)="onSubmit()"
   class="trainer-profile-form">
 
-  <!-- Name Field -->
-  <app-input-field
+  <!-- Header -->
+  <div class="trainer-profile-form__header">
+    <h2 class="trainer-profile-form__title">Tu información</h2>
+    <p class="trainer-profile-form__subtitle">
+      Completa la siguiente información para completar tu perfil
+    </p>
+  </div>
+
+  <!-- Fields Container -->
+  <div class="trainer-profile-form__fields">
+    <!-- Name Field -->
+    <app-input-field
     formControlName="name"
     label="Nombre"
     placeholder="Ingresa tu nombre completo"
@@ -37,6 +47,7 @@
     [maxLength]="getDocumentMaxLength()"
     [disabled]="!hasValidBirthday">
   </app-input-field>
+  </div>
   
   <!-- Submit Button -->
   <div class="trainer-profile-form__button-container">
