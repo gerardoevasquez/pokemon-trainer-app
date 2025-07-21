@@ -7,7 +7,7 @@ set -e  # Exit on any error
 
 # Configuration
 PROJECT_ID=${PROJECT_ID:-"your-project-id"}
-REGION=${REGION:-"us-central1"}
+REGION=${REGION:-"us-east1"}
 BUCKET_NAME="${PROJECT_ID}-cloudbuild-logs"
 
 # Colors for output

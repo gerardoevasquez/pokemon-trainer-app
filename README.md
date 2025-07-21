@@ -253,15 +253,15 @@ The application includes comprehensive GCP deployment configurations:
    gcloud run deploy pokemon-trainer-app \
      --image gcr.io/$PROJECT_ID/pokemon-trainer-app \
      --platform managed \
-     --region us-central1 \
+     --region us-east1 \
      --allow-unauthenticated
    ```
 
 ### Environment Configurations
 
-- **Production** (`cloudbuild.yaml`): 512Mi RAM, 1 CPU, 10 max instances
-- **Staging** (`cloudbuild-staging.yaml`): 256Mi RAM, 1 CPU, 5 max instances
-- **Testing** (`cloudbuild-test.yaml`): 256Mi RAM, 1 CPU, 1 max instance
+- **Production** (`cloudbuild.yaml`): 512Mi RAM, 1 CPU, 10 max instances (us-east1)
+- **Staging** (`cloudbuild-staging.yaml`): 256Mi RAM, 1 CPU, 5 max instances (us-east1)
+- **Testing** (`cloudbuild-test.yaml`): 256Mi RAM, 1 CPU, 1 max instance (us-east1)
 
 ### Cloud Build Features
 

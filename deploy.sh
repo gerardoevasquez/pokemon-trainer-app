@@ -7,7 +7,7 @@ set -e  # Exit on any error
 
 # Configuration
 PROJECT_ID=${PROJECT_ID:-"your-project-id"}
-REGION=${REGION:-"us-central1"}
+REGION=${REGION:-"us-east1"}
 SERVICE_NAME=${SERVICE_NAME:-"pokemon-trainer-app"}
 IMAGE_NAME="gcr.io/$PROJECT_ID/$SERVICE_NAME"
 TAG=${TAG:-$(git rev-parse --short HEAD)}

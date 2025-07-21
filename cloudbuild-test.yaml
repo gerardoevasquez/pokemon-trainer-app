@@ -37,7 +37,7 @@ steps:
       - '--image'
       - 'gcr.io/$PROJECT_ID/pokemon-trainer-app-test:$COMMIT_SHA'
       - '--region'
-      - 'us-central1'
+      - 'us-east1'
       - '--platform'
       - 'managed'
       - '--allow-unauthenticated'
@@ -72,7 +72,7 @@ options:
 
 # Substitutions for test environment
 substitutions:
-  _REGION: 'us-central1'
+  _REGION: 'us-east1'
   _SERVICE_NAME: 'pokemon-trainer-app-test'
   _MEMORY: '256Mi'
   _CPU: '1'

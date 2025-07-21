@@ -17,7 +17,7 @@ steps:
       - '--image'
       - 'gcr.io/$PROJECT_ID/pokemon-trainer-app-staging:$COMMIT_SHA'
       - '--region'
-      - 'us-central1'
+      - 'us-east1'
       - '--platform'
       - 'managed'
       - '--allow-unauthenticated'
@@ -53,7 +53,7 @@ options:
 
 # Substitutions for staging environment
 substitutions:
-  _REGION: 'us-central1'
+  _REGION: 'us-east1'
   _SERVICE_NAME: 'pokemon-trainer-app-staging'
   _MEMORY: '256Mi'
   _CPU: '1'
