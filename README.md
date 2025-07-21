@@ -211,11 +211,12 @@ The application includes comprehensive GCP deployment configurations:
 
 2. **Set up Cloud Build triggers:**
    ```bash
-   # Create triggers for different environments
+   # Create trigger with configurable deployment
    gcloud builds triggers create github \
      --repo-name=pokemon-trainer-app \
      --branch-pattern="main" \
-     --build-config=cloudbuild.yaml
+     --build-config=cloudbuild.yaml \
+     --substitutions=_REGION=us-central1,_SERVICE_NAME=pokemon-trainer-app,_MEMORY=512Mi,_CPU=1,_MAX_INSTANCES=10,_MIN_INSTANCES=0
    ```
 
 2. **Push to trigger deployment:**
@@ -235,12 +236,22 @@ The application includes comprehensive GCP deployment configurations:
    ./setup-cloud-build.sh
    ```
 
-2. **Using the deployment script:**
+2. **Using configurable deployment:**
    ```bash
    # Set your project ID
    export PROJECT_ID="your-project-id"
    
-   # Run deployment
+   # Run deployment with custom configuration
+   gcloud builds submit --config=cloudbuild.yaml \
+     --substitutions=_REGION=us-central1,_SERVICE_NAME=pokemon-trainer-app,_MEMORY=512Mi,_CPU=1,_MAX_INSTANCES=10,_MIN_INSTANCES=0 .
+   ```
+
+3. **Using the simple deployment script:**
+   ```bash
+   # Set your project ID
+   export PROJECT_ID="your-project-id"
+   
+   # Run deployment to specific region
    ./deploy.sh
    ```
 
@@ -259,7 +270,7 @@ The application includes comprehensive GCP deployment configurations:
 
 ### Environment Configurations
 
-- **Production** (`cloudbuild.yaml`): 512Mi RAM, 1 CPU, 10 max instances (us-east1)
+- **Production** (`cloudbuild.yaml`): 512Mi RAM, 1 CPU, 10 max instances (us-central1)
 - **Staging** (`cloudbuild-staging.yaml`): 256Mi RAM, 1 CPU, 5 max instances (us-east1)
 - **Testing** (`cloudbuild-test.yaml`): 256Mi RAM, 1 CPU, 1 max instance (us-east1)
 
@@ -271,6 +282,38 @@ The application includes comprehensive GCP deployment configurations:
 - **Optimized build machines** (E2_HIGHCPU_8 for production)
 - **Environment-specific configurations**
 - **Health checks and monitoring**
+- **Intelligent multi-region deployment** (fallback regions)
+
+### 🎯 Deployment Strategies
+
+#### **1. Configurable Deployment (Recommended)**
+```bash
+# Deploy with custom configuration using substitutions
+gcloud builds submit --config=cloudbuild.yaml \
+  --substitutions=_REGION=us-central1,_SERVICE_NAME=pokemon-trainer-app,_MEMORY=512Mi,_CPU=1,_MAX_INSTANCES=10,_MIN_INSTANCES=0 .
+```
+- ✅ **Flexible configuration** via substitutions
+- ✅ **Easy to customize** region, memory, CPU, instances
+- ✅ **Single deployment** with configurable parameters
+- ✅ **Built into Cloud Build** (no additional scripts needed)
+
+#### **2. Multi-Regional Deployment (High Availability)**
+```bash
+# Deploys to all regions simultaneously
+gcloud run deploy --region=us-central1,us-east1,us-west1
+```
+- ❌ **Multiple deployments** (one per region)
+- ❌ **Higher cost** (multiple instances)
+- ✅ **Maximum availability** globally
+
+#### **3. Simple Deployment**
+```bash
+# Deploys using default substitutions
+gcloud builds submit --config=cloudbuild.yaml .
+```
+- ✅ **Single deployment** using default values
+- ✅ **Simple command** (no substitutions needed)
+- ❌ **Less flexible** (uses default configuration)
 
 ## 📝 Code Quality
 
