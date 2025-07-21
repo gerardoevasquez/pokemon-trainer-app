@@ -68,6 +68,7 @@ timeout: '1800s'
 # Machine type for test builds
 options:
   machineType: 'E2_HIGHCPU_4'
+  logging: CLOUD_LOGGING_ONLY
 
 # Substitutions for test environment
 substitutions:

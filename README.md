@@ -200,7 +200,16 @@ The application includes comprehensive GCP deployment configurations:
 
 #### **Automatic Deployment (Recommended)**
 
-1. **Set up Cloud Build triggers:**
+1. **Create logs bucket (required for Cloud Build):**
+   ```bash
+   # Create a bucket for Cloud Build logs
+   gsutil mb gs://$PROJECT_ID-cloudbuild-logs
+   
+   # Set bucket permissions
+   gsutil iam ch serviceAccount:$PROJECT_NUMBER@cloudbuild.gserviceaccount.com:objectViewer gs://$PROJECT_ID-cloudbuild-logs
+   ```
+
+2. **Set up Cloud Build triggers:**
    ```bash
    # Create triggers for different environments
    gcloud builds triggers create github \
@@ -217,7 +226,16 @@ The application includes comprehensive GCP deployment configurations:
 
 #### **Manual Deployment**
 
-1. **Using the deployment script:**
+1. **Setup Cloud Build (first time only):**
+   ```bash
+   # Set your project ID
+   export PROJECT_ID="your-project-id"
+   
+   # Run setup script
+   ./setup-cloud-build.sh
+   ```
+
+2. **Using the deployment script:**
    ```bash
    # Set your project ID
    export PROJECT_ID="your-project-id"
