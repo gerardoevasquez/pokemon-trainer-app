@@ -4,7 +4,7 @@
   display: flex;
   align-items: flex-start;
   gap: $spacing-md;
-  margin-bottom: $spacing-2xl;
+  margin-bottom: $spacing-xl; // Reducido de $spacing-2xl
   width: 100%;
 
   &__back-btn {

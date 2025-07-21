@@ -6,31 +6,31 @@
   background: $color-gray-100;
 
   .trainer-profile__main {
-    padding: $spacing-xl 0;
+    padding: $spacing-lg 0; // Reducido de $spacing-xl
     
     .container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 $spacing-xl;
+      padding: 0 $spacing-lg; // Reducido de $spacing-xl
     }
 
     // Step Message
     app-step-message {
-      margin-bottom: $spacing-2xl;
+      margin-bottom: $spacing-xl; // Reducido de $spacing-2xl
       width: 100%;
     }
 
     // Content Grid - Div inferior con flex
     .trainer-profile__content {
       display: flex;
-      gap: 68px; // Gap exacto del diseño
+      gap: 240px; // Reducido de 68px para mejor balance
       align-items: flex-start;
       max-width: 1200px; // Aumentado para dar más espacio
       margin: 0 auto;
 
       @media (max-width: $breakpoint-md) {
         flex-direction: column;
-        gap: $spacing-xl;
+        gap: $spacing-lg; // Reducido en móvil
       }
     }
 

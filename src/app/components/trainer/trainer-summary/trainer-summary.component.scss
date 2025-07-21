@@ -36,12 +36,14 @@
     overflow: hidden;
     position: relative;
     height: 400px; // Altura fija para el Swiper
+    border: 1px solid #ccc; // Temporal para debug
   }
 
   &__swiper {
     width: 100%;
     height: 100%;
     --swiper-navigation-size: 24px;
+    border: 1px solid red; // Temporal para debug
   }
 
   &__slide {
@@ -51,6 +53,7 @@
     padding: $spacing-md;
     height: auto;
     min-height: 300px;
+    border: 1px solid blue; // Temporal para debug
   }
 }
 
