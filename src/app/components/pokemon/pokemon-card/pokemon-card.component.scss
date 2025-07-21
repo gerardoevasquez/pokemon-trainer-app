@@ -103,12 +103,36 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+
+    .shiny-icon {
+      color: #FFD700;
+      font-size: 12px;
+      width: 12px;
+      height: 12px;
+      animation: sparkle 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
   }
 }
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+@keyframes sparkle {
+  0%, 100% { 
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  50% { 
+    transform: scale(1.1) rotate(180deg);
+    opacity: 0.8;
+  }
 }
 
 // Responsive

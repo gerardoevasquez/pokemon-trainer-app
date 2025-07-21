@@ -32,31 +32,57 @@
     width: 222px;
   }
   
-  ::ng-deep {
-    .mat-mdc-raised-button {
-      background-color: #01426A !important;
-      color: $color-white !important;
-      border: none !important;
-      box-shadow: $shadow-md !important;
-      border-radius: 10px !important;
-      
-      &:hover:not(:disabled) {
-        background-color: #013a5a !important;
-        box-shadow: $shadow-lg !important;
-        transform: translateY(-1px);
-      }
-      
-      &:active:not(:disabled) {
-        transform: translateY(0);
-        box-shadow: $shadow-sm !important;
-      }
-      
-      &:disabled {
-        background-color: #E6E6E6 !important;
-        color: $color-gray-600 !important;
-        box-shadow: none !important;
-        cursor: not-allowed;
-      }
+  // Aumentar especificidad para asegurar que los estilos se apliquen
+  ::ng-deep button.mat-mdc-raised-button.mat-unthemed {
+    background-color: #01426A !important;
+    color: $color-white !important;
+    border: none !important;
+    box-shadow: $shadow-md !important;
+    border-radius: 10px !important;
+    
+    &:hover:not(:disabled) {
+      background-color: #013a5a !important;
+      box-shadow: $shadow-lg !important;
+      transform: translateY(-1px);
+    }
+    
+    &:active:not(:disabled) {
+      transform: translateY(0);
+      box-shadow: $shadow-sm !important;
+    }
+    
+    &:disabled {
+      background-color: #E6E6E6 !important;
+      color: $color-gray-600 !important;
+      box-shadow: none !important;
+      cursor: not-allowed;
+    }
+  }
+  
+  // Estilos adicionales para mayor especificidad
+  ::ng-deep .mat-mdc-raised-button {
+    background-color: #01426A !important;
+    color: $color-white !important;
+    border: none !important;
+    box-shadow: $shadow-md !important;
+    border-radius: 10px !important;
+    
+    &:hover:not(:disabled) {
+      background-color: #013a5a !important;
+      box-shadow: $shadow-lg !important;
+      transform: translateY(-1px);
+    }
+    
+    &:active:not(:disabled) {
+      transform: translateY(0);
+      box-shadow: $shadow-sm !important;
+    }
+    
+    &:disabled {
+      background-color: #E6E6E6 !important;
+      color: $color-gray-600 !important;
+      box-shadow: none !important;
+      cursor: not-allowed;
     }
   }
   
@@ -78,3 +104,17 @@
     font-weight: $font-weight-semibold;
   }
 } 
+
+button{
+  background-color: #01426A !important;
+  color: $color-white !important;
+  border-radius: 10px !important;
+  
+  &:hover:not(:disabled) {
+    background-color: #013a5a !important;
+  }
+  
+  &:disabled {
+    background-color: #E6E6E6 !important;
+  }
+}

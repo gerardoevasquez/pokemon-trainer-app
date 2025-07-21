@@ -32,6 +32,7 @@ export class PokemonCardComponent implements OnInit {
   imageUrl: string = '';
   pokemonId: number = 0;
   isLoadingDetails: boolean = true;
+  isShiny: boolean = false;
 
   constructor(private pokemonService: PokemonService) {}
 
@@ -54,8 +55,13 @@ export class PokemonCardComponent implements OnInit {
       next: (pokemon) => {
         this.pokemonDetails = pokemon;
         this.imageUrl = this.pokemonService.getPokemonSprite(pokemon);
+        
+        // Detectar si es shiny usando el cache
+        this.isShiny = this.pokemonService.isPokemonShinyInCache(pokemon.id) || 
+                      this.pokemonService.isPokemonSelectedAsShiny(pokemon.id);
+        
         this.isLoadingDetails = false;
-        console.log('🎴 PokemonCard - Detalles cargados:', pokemon.name, 'ID:', pokemon.id, 'Imagen:', this.imageUrl, 'para tarjeta:', this.pokemon.name);
+        console.log('🎴 PokemonCard - Detalles cargados:', pokemon.name, 'ID:', pokemon.id, 'Imagen:', this.imageUrl, 'Es Shiny:', this.isShiny, 'para tarjeta:', this.pokemon.name);
         console.log('🎴 PokemonCard - Sprites disponibles:', pokemon.sprites);
       },
       error: (error) => {

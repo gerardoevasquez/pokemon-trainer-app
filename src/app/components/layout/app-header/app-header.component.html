@@ -37,7 +37,7 @@
           class="app-header__user-btn"
           (click)="onUserMenuOpen()"
           [attr.aria-label]="'Menú de usuario para ' + userName">
-          <span class="app-header__user-name">{{ userName }}
+          <span class="app-header__user-name">{{ getFirstName() }}
           <mat-icon class="app-header__user-arrow">expand_more</mat-icon>
         </span>
         </button>

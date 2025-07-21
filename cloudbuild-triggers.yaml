@@ -1,0 +1,74 @@
+# Cloud Build Triggers Configuration
+# This file defines the triggers for automatic deployment
+
+# Production Trigger (main branch)
+production_trigger:
+  name: "pokemon-trainer-app-production"
+  description: "Deploy to production on main branch"
+  trigger_template:
+    project_id: "${PROJECT_ID}"
+    branch_name: "main"
+    repo_name: "pokemon-trainer-app"
+  filename: "cloudbuild.yaml"
+  substitutions:
+    _ENVIRONMENT: "production"
+    _REGION: "us-central1"
+    _SERVICE_NAME: "pokemon-trainer-app"
+    _MEMORY: "512Mi"
+    _CPU: "1"
+    _MAX_INSTANCES: "10"
+    _MIN_INSTANCES: "0"
+
+# Staging Trigger (develop branch)
+staging_trigger:
+  name: "pokemon-trainer-app-staging"
+  description: "Deploy to staging on develop branch"
+  trigger_template:
+    project_id: "${PROJECT_ID}"
+    branch_name: "develop"
+    repo_name: "pokemon-trainer-app"
+  filename: "cloudbuild-staging.yaml"
+  substitutions:
+    _ENVIRONMENT: "staging"
+    _REGION: "us-central1"
+    _SERVICE_NAME: "pokemon-trainer-app-staging"
+    _MEMORY: "256Mi"
+    _CPU: "1"
+    _MAX_INSTANCES: "5"
+    _MIN_INSTANCES: "0"
+
+# Feature Trigger (feature branches)
+feature_trigger:
+  name: "pokemon-trainer-app-feature"
+  description: "Deploy feature branches for testing"
+  trigger_template:
+    project_id: "${PROJECT_ID}"
+    branch_name: "feature/.*"
+    repo_name: "pokemon-trainer-app"
+  filename: "cloudbuild-staging.yaml"
+  substitutions:
+    _ENVIRONMENT: "feature"
+    _REGION: "us-central1"
+    _SERVICE_NAME: "pokemon-trainer-app-feature-${BRANCH_NAME}"
+    _MEMORY: "256Mi"
+    _CPU: "1"
+    _MAX_INSTANCES: "2"
+    _MIN_INSTANCES: "0"
+
+# Pull Request Trigger
+pr_trigger:
+  name: "pokemon-trainer-app-pr"
+  description: "Build and test on pull requests"
+  trigger_template:
+    project_id: "${PROJECT_ID}"
+    branch_name: ".*"
+    repo_name: "pokemon-trainer-app"
+  filename: "cloudbuild-test.yaml"
+  substitutions:
+    _ENVIRONMENT: "test"
+    _REGION: "us-central1"
+    _SERVICE_NAME: "pokemon-trainer-app-test"
+    _MEMORY: "256Mi"
+    _CPU: "1"
+    _MAX_INSTANCES: "1"
+    _MIN_INSTANCES: "0" 

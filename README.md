@@ -82,14 +82,17 @@ The application follows the provided Figma design specifications:
 
 ## 🔧 Technical Stack
 
-- **Framework**: Angular 17 (Standalone Components)
-- **Language**: TypeScript
+- **Framework**: Angular 20 (Standalone Components)
+- **Language**: TypeScript 5.8
 - **Styling**: SCSS with CSS Variables
-- **UI Library**: Angular Material
+- **UI Library**: Angular Material 20
 - **Virtual Scroll**: Angular CDK Scrolling
-- **Carousel**: Swiper.js
+- **Carousel**: Swiper.js 11.2
 - **API**: PokeAPI (https://pokeapi.co/)
-- **Build Tool**: Angular CLI
+- **Build Tool**: Angular CLI 20
+- **Node.js**: 20.x (LTS)
+- **Container**: Docker with Nginx
+- **Cloud**: Google Cloud Platform (Cloud Build + Cloud Run)
 
 ## 📱 Features Breakdown
 
@@ -142,6 +145,114 @@ npm run build
 
 ### Build Output
 The build artifacts will be stored in the `dist/` directory.
+
+### Docker Deployment
+
+The application includes a Dockerfile for containerized deployment:
+
+1. **Build the Docker image:**
+   ```bash
+   docker build -t pokemon-trainer-app .
+   ```
+
+2. **Run the container:**
+   ```bash
+   docker run -p 80:80 pokemon-trainer-app
+   ```
+
+3. **Access the application:**
+   Navigate to `http://localhost` in your browser
+
+### Docker Compose (Optional)
+
+Create a `docker-compose.yml` file for easier deployment:
+
+```yaml
+version: '3.8'
+services:
+  pokemon-trainer-app:
+    build: .
+    ports:
+      - "80:80"
+    restart: unless-stopped
+```
+
+Then run:
+```bash
+docker-compose up -d
+```
+
+## 🐳 Docker Features
+
+- **Multi-stage build** for optimized image size
+- **Nginx server** for production-ready serving
+- **Gzip compression** for better performance
+- **Security headers** for enhanced security
+- **Static asset caching** for improved loading times
+- **SPA routing support** for Angular navigation
+- **Health check endpoint** at `/health`
+
+## ☁️ Google Cloud Platform Deployment
+
+### Cloud Build & Cloud Run
+
+The application includes comprehensive GCP deployment configurations:
+
+#### **Automatic Deployment (Recommended)**
+
+1. **Set up Cloud Build triggers:**
+   ```bash
+   # Create triggers for different environments
+   gcloud builds triggers create github \
+     --repo-name=pokemon-trainer-app \
+     --branch-pattern="main" \
+     --build-config=cloudbuild.yaml
+   ```
+
+2. **Push to trigger deployment:**
+   ```bash
+   git push origin main  # Triggers production deployment
+   git push origin develop  # Triggers staging deployment
+   ```
+
+#### **Manual Deployment**
+
+1. **Using the deployment script:**
+   ```bash
+   # Set your project ID
+   export PROJECT_ID="your-project-id"
+   
+   # Run deployment
+   ./deploy.sh
+   ```
+
+2. **Using gcloud commands:**
+   ```bash
+   # Build and push image
+   gcloud builds submit --tag gcr.io/$PROJECT_ID/pokemon-trainer-app
+   
+   # Deploy to Cloud Run
+   gcloud run deploy pokemon-trainer-app \
+     --image gcr.io/$PROJECT_ID/pokemon-trainer-app \
+     --platform managed \
+     --region us-central1 \
+     --allow-unauthenticated
+   ```
+
+### Environment Configurations
+
+- **Production** (`cloudbuild.yaml`): 512Mi RAM, 1 CPU, 10 max instances
+- **Staging** (`cloudbuild-staging.yaml`): 256Mi RAM, 1 CPU, 5 max instances
+- **Testing** (`cloudbuild-test.yaml`): 256Mi RAM, 1 CPU, 1 max instance
+
+### Cloud Build Features
+
+- **Multi-environment support** (production, staging, testing)
+- **Automatic testing** before deployment
+- **Linting and code quality checks**
+- **Optimized build machines** (E2_HIGHCPU_8 for production)
+- **Environment-specific configurations**
+- **Health checks and monitoring**
 
 ## 📝 Code Quality
 

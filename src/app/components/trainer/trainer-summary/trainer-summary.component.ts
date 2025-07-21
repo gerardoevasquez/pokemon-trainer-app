@@ -27,6 +27,7 @@ export class TrainerSummaryComponent implements OnInit {
   @Input() profileData?: ProfileData;
   @Input() selectedTeam: Pokemon[] = [];
   @Output() editProfile = new EventEmitter<void>();
+  @Output() editPokemon = new EventEmitter<void>();
 
   constructor(private pokemonService: PokemonService) {}
 
@@ -56,7 +57,7 @@ export class TrainerSummaryComponent implements OnInit {
   }
 
   getPokemonSprite(pokemon: Pokemon): string {
-    return this.pokemonService.getPokemonSprite(pokemon);
+    return this.pokemonService.getPokemonSpriteWithShinyPreference(pokemon);
   }
 
   getPokemonTypes(pokemon: Pokemon): string[] {
@@ -91,7 +92,28 @@ export class TrainerSummaryComponent implements OnInit {
     return statColors[statName] || '#666';
   }
 
+  isPokemonShiny(pokemon: Pokemon): boolean {
+    return this.pokemonService.isPokemonShinyInCache(pokemon.id) || 
+           this.pokemonService.isPokemonSelectedAsShiny(pokemon.id);
+  }
+
+  getPokemonMoves(pokemon: Pokemon): string[] {
+    return this.pokemonService.getPokemonRandomMoves(pokemon);
+  }
+
+  getMoveType(moveName: string): string {
+    return this.pokemonService.getMoveType(moveName);
+  }
+
+  getMoveTypeColor(moveName: string): string {
+    return this.pokemonService.getMoveTypeColor(moveName);
+  }
+
   onEditProfile(): void {
     this.editProfile.emit();
+  }
+
+  onEditPokemon(): void {
+    this.editPokemon.emit();
   }
 } 

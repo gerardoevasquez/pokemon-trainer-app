@@ -30,6 +30,16 @@ export class AppHeaderComponent {
   logoError: boolean = false;
   
   /**
+   * Get only the first name from the full name
+   */
+  getFirstName(): string {
+    if (!this.userName || this.userName.trim() === '') {
+      return '';
+    }
+    return this.userName.split(' ')[0];
+  }
+
+  /**
    * Handle user dropdown menu open
    */
   onUserMenuOpen(): void {

@@ -88,6 +88,19 @@ export class DuiFormatDirective implements OnInit {
     const input = event.target as HTMLInputElement;
     const key = event.key;
     const value = input.value;
+    const selectionStart = input.selectionStart || 0;
+
+    // Manejo especial para backspace justo después del guion
+    if (key === 'Backspace' && value[selectionStart - 1] === '-' && selectionStart === value.length) {
+      // Eliminar guion y el dígito anterior
+      const newValue = value.slice(0, selectionStart - 2);
+      input.value = newValue;
+      if (this.control.control) {
+        this.control.control.setValue(newValue, { emitEvent: false });
+      }
+      event.preventDefault();
+      return;
+    }
 
     // Allow: backspace, delete, tab, escape, enter, navigation keys
     if ([8, 9, 27, 13, 46, 37, 39].includes(event.keyCode) || 
@@ -96,7 +109,7 @@ export class DuiFormatDirective implements OnInit {
     }
 
     // Allow only digits
-    if (!/^\d$/.test(key)) {
+    if (!/^[0-9]$/.test(key)) {
       event.preventDefault();
       return;
     }

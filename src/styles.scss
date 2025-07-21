@@ -1,8 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 
-// Import Angular Material theme
-@use '@angular/material' as mat;
-
 // Import variables and mixins
 @use 'styles/variables' as *;
 
@@ -171,9 +168,6 @@ html, body {
     animation: spin 1s linear infinite;
   }
 }
-
-// Angular Material theme
-@include mat.core();
 
 // Import Material theme styles
 @import '@angular/material/prebuilt-themes/indigo-pink.css';

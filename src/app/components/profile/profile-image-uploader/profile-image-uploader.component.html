@@ -2,16 +2,34 @@
   <mat-card class="profile-card">
     <mat-card-content>
       
-      <!-- Title -->
-      <div class="profile-title">
+      <!-- Dynamic Title -->
+      <div *ngIf="currentStep === 1" class="profile-uploader__title profile-uploader__title--step-1">
         Imagen perfil
+      </div>
+      
+      <!-- Nombre centrado arriba de la imagen (solo en step 2) -->
+      <div class="profile-name" *ngIf="profileData && profileData.name && currentStep === 2">
+        {{ profileData.name }}
+      </div>
+      
+      <!-- Entrenador con medalla (solo en step 3) -->
+      <div class="trainer-header" *ngIf="currentStep === 3">
+        <span class="trainer-title">Entrenador</span>
+        <div class="trainer-badge">
+          <img src="assets/images/icons/Group_1163.png" alt="Medalla" class="medal-icon">
+        </div>
       </div>
       
       <!-- Image Section -->
       <div class="image-section">
         
         <!-- Empty State Circle -->
-        <div class="image-container empty-state" *ngIf="!hasImage()" (click)="triggerFileInput()">
+        <div 
+          class="image-container empty-state" 
+          *ngIf="!hasImage()" 
+          [class.clickable]="currentStep === 1"
+          [class.non-clickable]="currentStep > 1"
+          (click)="currentStep === 1 ? triggerFileInput() : null">
           <mat-icon class="placeholder-icon">person</mat-icon>
         </div>
         
@@ -23,11 +41,21 @@
             class="profile-image">
         </div>
         
-        <!-- Upload Area - Empty State -->
-        <div class="upload-area" *ngIf="isUploadMode && !hasImage()" (click)="triggerFileInput()">
+        <!-- Upload Area - Normal State -->
+        <div 
+          class="upload-area" 
+          [class.error-state]="hasError"
+          *ngIf="isUploadMode && !hasImage()" 
+          (click)="triggerFileInput()">
           <div class="upload-content">
-            <span class="upload-text">Adjunta un foto</span>
-            <mat-icon class="upload-icon">cloud_upload_outlined</mat-icon>
+            <span class="upload-text" [class.error-text]="hasError">
+              {{ hasError ? errorMessage : 'Adjunta un foto' }}
+            </span>
+            <mat-icon 
+              class="upload-icon" 
+              [class.error-icon]="hasError">
+              {{ hasError ? 'error_outline' : 'cloud_upload_outlined' }}
+            </mat-icon>
           </div>
         </div>
         
@@ -55,15 +83,15 @@
       </div>
       
       <!-- Profile Info (display mode) -->
-      <div class="profile-info" *ngIf="profileData && !isUploadMode">
+      <div class="profile-info" *ngIf="shouldShowProfileInfo()">
         <div class="info-item">
-          <strong>Pasatiempo:</strong> {{ profileData.hobby }}
+          <strong>Pasatiempo:</strong> <span>{{ profileData?.hobby }}</span>
         </div>
         <div class="info-item">
-          <strong>Edad:</strong> {{ profileData.age }} años
+          <strong>Edad:</strong> <span>{{ getAge() }} años</span>
         </div>
-        <div class="info-item">
-          <strong>DUI:</strong> {{ profileData.document }}
+        <div class="info-item" *ngIf="shouldShowDocument()">
+          <strong>{{ getDocumentType() }}:</strong> <span>{{ profileData?.document }}</span>
         </div>
       </div>
       

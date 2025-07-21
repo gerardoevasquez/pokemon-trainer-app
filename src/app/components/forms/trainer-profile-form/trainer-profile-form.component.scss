@@ -1,10 +1,10 @@
 @use '../../../../styles/variables' as *;
+@use '../../../../styles/forms' as *;
 
 .trainer-profile-form {
   width: $form-width;
   height: 523px;
   background: transparent;
-  padding: 32px;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -37,7 +37,7 @@
   &__fields {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 8px;
     
     app-input-field,
     app-date-picker-field {
@@ -49,5 +49,65 @@
     display: flex;
     justify-content: center;
     margin-top: 8px;
+  }
+}
+
+.trainer-profile-form__hobby-field {
+  width: 334px !important;
+  margin-bottom: 21.6px;
+  min-height: 58px;
+  max-height: 58px;
+  height: 58px;
+  background: white;
+
+  ::ng-deep {
+    .mat-mdc-form-field {
+      width: 334px !important;
+      min-height: 58px;
+      max-height: 58px;
+      height: 58px;
+      background: white;
+    }
+    .mat-mdc-text-field-wrapper {
+      min-height: 58px;
+      max-height: 58px;
+      height: 58px;
+      display: flex;
+      align-items: center;
+      background: white !important;
+    }
+    .mat-chip-grid {
+      min-height: 32px;
+      max-height: 32px;
+      height: 32px;
+      align-items: center;
+      background: transparent;
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: hidden;
+      gap: 0;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    .mat-mdc-chip {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      max-width: 90%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    input.mat-input-element {
+      margin: 0;
+      background: transparent;
+      min-width: 0;
+      width: 100%;
+      flex: 1 1 0;
+      max-width: 100%;
+    }
   }
 }

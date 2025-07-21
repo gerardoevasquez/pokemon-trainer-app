@@ -68,16 +68,19 @@
     color: #185A7D; // Color exacto Primary/Azul/Azul 10
     margin: 0;
     text-align: center; // Alineación centrada
-    vertical-align: middle; // Alineación vertical
+    white-space: nowrap; // Evitar saltos de línea
+    display: block; // Hacer que ocupe todo el ancho disponible
   }
 
   &__dots {
-    display: inline-block;
+    display: inline-block; // Cambiar a inline-block para mejor control
+    vertical-align: baseline; // Mantener alineación con el texto
   }
 
   &__dot {
-    display: inline-block;
-    animation: wave 1.5s ease-in-out infinite;
+    display: inline-block; // Cambiar a inline-block para permitir transformaciones
+    animation: wave 1.2s ease-in-out infinite;
+    margin: 0 2px; // Añadir pequeño espacio entre puntos
     
     &:nth-child(1) {
       animation-delay: 0s;
@@ -93,15 +96,15 @@
   }
 }
 
-// Animación de ola para los puntos
+// Animación de ola mejorada para los puntos
 @keyframes wave {
-  0%, 60%, 100% {
+  0%, 100% {
     transform: translateY(0);
     opacity: 1;
   }
-  30% {
-    transform: translateY(-10px);
-    opacity: 0.7;
+  50% {
+    transform: translateY(-15px);
+    opacity: 0.8;
   }
 }
 

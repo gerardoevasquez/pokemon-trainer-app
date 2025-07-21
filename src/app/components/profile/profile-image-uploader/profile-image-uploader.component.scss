@@ -6,21 +6,122 @@
     height: 600px;
     background: #FFC600;
     border-radius: 50px;
-    padding: 2rem;
+    padding: 15px 2rem;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     align-items: center;
+    // Padding consistente para paso 2 y 3
 
-    .profile-title {
-      text-align: center;
+    .profile-name {
       font-family: 'Poppins', sans-serif;
-      font-size: 30px;
-      font-weight: 400;
-      color: #000000;
-      margin-bottom: 2rem;
+      font-size: 35px;
+      font-weight: 700;
       line-height: 100%;
       letter-spacing: 0%;
+      text-align: center;
+      color: #185A7D;
+      margin-bottom: 2rem;
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .trainer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      margin-bottom: 2rem;
+      // Remover padding adicional para mantener consistencia con paso 2
+
+      .trainer-title {
+        font-family: 'Poppins', sans-serif;
+        font-size: 24px;
+        font-weight: 500;
+        font-style: normal;
+        line-height: 100%;
+        letter-spacing: 0%;
+        text-align: center;
+        vertical-align: middle;
+        color: #4B4B4B;
+        width: 134px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .trainer-badge {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .medal-icon {
+          width: 32px;
+          height: 32px;
+          object-fit: contain;
+        }
+
+        .trainer-stats {
+          font-family: 'Poppins', sans-serif;
+          font-size: 16px;
+          font-weight: 500;
+          color: #4B4B4B;
+        }
+      }
+    }
+
+    .profile-title {
+      font-size: $font-size-xl;
+      font-weight: $font-weight-bold;
+      color: $color-gray-900;
+      margin-bottom: $spacing-md;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      // Estilos específicos para el paso 2 (solo nombre)
+      &.step-2 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 35px;
+        font-weight: 700;
+        line-height: 100%;
+        letter-spacing: 0%;
+        text-align: center;
+        vertical-align: middle;
+        color: #185A7D;
+        width: 179px;
+        height: 53px;
+        justify-content: center;
+        margin: 0 auto $spacing-lg auto;
+      }
+    }
+
+    .achievement-badge {
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+      
+      mat-icon {
+        color: white;
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+      }
+    }
+
+    .profile-subtitle {
+      font-size: $font-size-lg;
+      font-weight: $font-weight-medium;
+      color: $color-gray-700;
+      margin-bottom: $spacing-lg;
     }
 
     .image-section {
@@ -48,11 +149,19 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          cursor: pointer;
           transition: background-color 0.3s ease;
 
-          &:hover {
-            background: #D7E7F5;
+          &.clickable {
+            cursor: pointer;
+
+            &:hover {
+              background: #D7E7F5;
+            }
+          }
+
+          &.non-clickable {
+            cursor: default;
+            opacity: 0.7;
           }
 
           .placeholder-icon {
@@ -95,6 +204,29 @@
           border-color: #8BA8C3; // Borde ligeramente más oscuro en hover
         }
 
+        // Estado de error
+        &.error-state {
+          background: #FFF5F5; // Fondo rojo muy claro
+          border-color: #F44336; // Borde rojo
+          border-style: dashed; // Borde punteado como el normal
+
+          &:hover {
+            background: #FFEBEE; // Fondo rojo más intenso en hover
+            border-color: #D32F2F; // Borde rojo más oscuro en hover
+          }
+
+          .upload-content {
+            .upload-text {
+              color: #F44336; // Texto rojo
+              font-weight: 600; // Texto más grueso para error
+            }
+
+            .upload-icon {
+              color: #F44336; // Icono rojo
+            }
+          }
+        }
+
         .upload-content {
           display: flex;
           align-items: center;
@@ -105,31 +237,94 @@
             font-size: 14px;
             font-weight: 500;
             font-family: 'Poppins', sans-serif;
+
+            &.error-text {
+              color: #F44336; // Texto rojo para error
+              font-weight: 600; // Texto más grueso para error
+            }
           }
 
           .upload-icon {
             color: #2C85BC; // Icono azul intenso
             font-size: 24px;
+
+            &.error-icon {
+              color: #F44336; // Icono rojo para error
+            }
           }
         }
       }
     }
 
     .profile-info {
-      margin-top: auto;
+      margin-top: 2.5rem;
       width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      // Asegurar consistencia entre paso 2 y 3
 
       .info-item {
-        margin-bottom: 0.5rem;
-        color: #333;
-        font-size: 0.9rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #4B4B4B;
+        font-family: 'Poppins', sans-serif;
+        font-size: 24px;
+        line-height: 100%;
 
         strong {
-          color: #555;
+          color: #4B4B4B;
+          font-weight: 700;
+          text-align: left;
+        }
+
+        span {
+          color: #4B4B4B;
+          font-weight: 400;
+          text-align: right;
         }
       }
     }
   }
+
+  .profile-uploader__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center; // Centrar todo el contenido
+
+    &--step-1,
+    &--step-2 {
+      text-align: center; // Centrar específicamente en pasos 1 y 2
+    }
+
+    &--step-3 {
+      text-align: left; // Mantener alineación izquierda en paso 3
+    }
+  }
+}
+
+.profile-uploader__title--step-1 {
+  width: 200px;
+  height: 45px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 100%;
+  color: #000000;
+  margin: 0 auto 24px auto;
+  text-align: center;
+  box-sizing: border-box;
 }
 
 .upload-area {
@@ -151,6 +346,29 @@
     border-color: #8BA8C3;
   }
 
+  // Estado de error
+  &.error-state {
+    background: #FFF5F5; // Fondo rojo muy claro
+    border-color: #F44336; // Borde rojo
+    border-style: dashed; // Borde punteado como el normal
+
+    &:hover {
+      background: #FFEBEE; // Fondo rojo más intenso en hover
+      border-color: #D32F2F; // Borde rojo más oscuro en hover
+    }
+
+    .upload-content {
+      .upload-text {
+        color: #F44336; // Texto rojo
+        font-weight: 600; // Texto más grueso para error
+      }
+
+      .upload-icon {
+        color: #F44336; // Icono rojo
+      }
+    }
+  }
+
   // Estado vacío
   .upload-content {
     display: flex;
@@ -163,11 +381,20 @@
       font-size: 14px;
       font-weight: 500;
       font-family: 'Poppins', sans-serif;
+
+      &.error-text {
+        color: #F44336; // Texto rojo para error
+        font-weight: 600; // Texto más grueso para error
+      }
     }
 
     .upload-icon {
       color: #2C85BC;
       font-size: 24px;
+
+      &.error-icon {
+        color: #F44336; // Icono rojo para error
+      }
     }
   }
 

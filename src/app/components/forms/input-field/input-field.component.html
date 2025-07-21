@@ -12,7 +12,10 @@
     [formControl]="formControl"
     [required]="required"
     [attr.maxLength]="maxLength || undefined"
-    [disabled]="disabled">
+    [disabled]="disabled"
+    [appDuiFormat]="enableDuiFormat"
+    [appTextOnly]="textOnly"
+    [appNumberOnly]="numberOnly">
   
   <mat-error *ngIf="isError">
     {{ errorMessage || 'Este campo es requerido' }}

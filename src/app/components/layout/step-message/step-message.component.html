@@ -12,9 +12,19 @@
 
   <!-- Message Content -->
   <div class="step-message__content">
-    <h1 class="step-message__title">
-      {{ message.title }}
-    </h1>
+    <div class="step-message__title-row">
+      <h1 class="step-message__title">
+        {{ message.title }}
+      </h1>
+      <button 
+        *ngIf="message.showEditButton"
+        class="step-message__edit-btn"
+        mat-button
+        (click)="onEditClick()">
+        <mat-icon>edit</mat-icon>
+        {{ message.editButtonText }}
+      </button>
+    </div>
     
     <p 
       *ngIf="message.subtitle"
@@ -22,14 +32,5 @@
       {{ message.subtitle }}
     </p>
   </div>
-
-  <!-- Edit Button -->
-  <button 
-    *ngIf="message.showEditButton"
-    class="step-message__edit-btn"
-    mat-button
-    (click)="onEditClick()">
-    {{ message.editButtonText }}
-  </button>
 
 </div>

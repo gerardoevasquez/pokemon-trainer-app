@@ -27,6 +27,9 @@
     <!-- Etiqueta azul con número y nombre como en el diseño -->
     <div class="pokemon-card__name-label">
       #{{ pokemonId.toString().padStart(3, '0') }} {{ pokemon.name | titlecase }}
+      
+      <!-- Shiny Indicator -->
+      <mat-icon class="shiny-icon" *ngIf="isShiny">star</mat-icon>
     </div>
   </div>
   

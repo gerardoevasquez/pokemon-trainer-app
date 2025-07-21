@@ -22,6 +22,14 @@
     min-width: 0; // Para que el texto se ajuste correctamente
   }
 
+  &__title-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: $spacing-md;
+    width: 100%;
+  }
+
   &__title {
     font-family: $font-family-primary;
     font-size: $font-size-4xl;
@@ -29,6 +37,7 @@
     color: $color-pokemon-blue;
     margin: 0 0 $spacing-sm 0;
     line-height: $line-height-tight;
+    flex: 0 1 auto;
   }
 
   &__subtitle {
@@ -44,14 +53,24 @@
     flex-shrink: 0;
     color: $color-pokemon-blue;
     font-weight: $font-weight-medium;
-    border: 1px solid $color-pokemon-blue;
+    border: 1px solid #01426A;
     border-radius: $border-radius-md;
     padding: $spacing-sm $spacing-md;
-    margin-top: $spacing-xs;
+    margin-top: 0;
+    background-color: $color-white;
+    display: flex;
+    align-items: center;
+    gap: $spacing-xs;
+    height: 38px;
+    
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+    }
     
     &:hover {
-      background-color: $color-pokemon-blue;
-      color: $color-white;
+      background-color: rgba($color-pokemon-blue, 0.1);
     }
   }
 }

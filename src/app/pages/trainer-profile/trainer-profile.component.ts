@@ -40,6 +40,7 @@ export class TrainerProfileComponent implements OnInit {
   isLoading = false;
   profileData: ProfileData | undefined;
   selectedTeam: any[] = [];
+  isEditingProfile = false; // Nueva variable para detectar edición de perfil
 
   constructor(
     private fb: FormBuilder,
@@ -57,12 +58,21 @@ export class TrainerProfileComponent implements OnInit {
     return 'upload';
   }
 
+  /**
+   * Get only the first name from the full name
+   */
+  getFirstName(): string {
+    if (!this.profileData?.name || this.profileData.name.trim() === '') {
+      return 'Entrenador';
+    }
+    return this.profileData.name.split(' ')[0];
+  }
+
   get stepMessage() {
     if (this.currentStep === 1) {
       return { 
         title: '¡Hola! Configuremos tu perfil', 
         subtitle: 'Queremos conocerte mejor.',
-        showBackButton: true
       };
     }
     if (this.currentStep === 2) {
@@ -74,10 +84,11 @@ export class TrainerProfileComponent implements OnInit {
     }
     if (this.currentStep === 3) {
       return { 
-        title: `¡Hola ${this.profileData?.name || 'Entrenador'}!`, 
+        title: `¡Hola ${this.getFirstName()}!`, 
         subtitle: '',
         showBackButton: false,
-        showEditButton: true
+        showEditButton: true,
+        editButtonText: 'Editar perfil'
       };
     }
     return {
@@ -88,14 +99,46 @@ export class TrainerProfileComponent implements OnInit {
   }
 
   // Event handlers
-  onProfileCompleted(data: ProfileData) {
-    this.profileData = data;
-    this.showLoaderAndNextStep();
+  onProfileCompleted(data: any) {
+    console.log('Datos recibidos del formulario:', data);
+    
+    this.profileData = {
+      name: data.name || '',
+      hobby: data.hobby || '',
+      age: 0, // Se calculará en el componente de fecha
+      document: data.document || '',
+      birthDate: data.birthday || null,
+      selectedPokemon: this.profileData?.selectedPokemon || [], // Preservar Pokémon seleccionados
+      isCompleted: true,
+      imageUrl: this.profileData?.imageUrl // Preservar imagen del perfil
+    };
+    
+    console.log('ProfileData actualizado:', this.profileData);
+    
+    if (this.isEditingProfile) {
+      // Si se está editando el perfil, ir directamente al paso 3
+      console.log('🎮 TrainerProfile - Perfil editado, navegando directamente al paso 3');
+      this.isEditingProfile = false; // Resetear la bandera
+      this.showLoaderAndGoToStep(3);
+    } else {
+      // Si es la primera vez, continuar al paso 2
+      console.log('🎮 TrainerProfile - Primera vez, navegando al paso 2');
+      this.showLoaderAndNextStep();
+    }
   }
 
   onTeamSelected(team: any[]) {
     this.selectedTeam = team;
+    console.log('🎮 TrainerProfile - Equipo seleccionado por primera vez, mostrando loading...');
     this.showLoaderAndNextStep();
+  }
+
+  onTeamEdited(team: any[]) {
+    this.selectedTeam = team;
+    console.log('🎮 TrainerProfile - Equipo editado, mostrando loading...');
+    // Mostrar loader y volver al paso 3 después de editar
+    this.showLoaderAndNextStep();
+    console.log('Equipo editado, volviendo al paso 3:', this.selectedTeam);
   }
 
   onImageUploaded(file: File): void {
@@ -133,22 +176,48 @@ export class TrainerProfileComponent implements OnInit {
 
   onBackClick(): void {
     if (this.currentStep > 1) {
-      this.currentStep--;
+      // Mostrar loading cuando se navega hacia atrás desde el paso 3
+      if (this.currentStep === 3) {
+        this.showLoaderAndGoToStep(this.currentStep - 1);
+      } else {
+        this.currentStep--;
+      }
     } else {
       this.router.navigate(['/']);
     }
   }
 
   onEditProfile(): void {
-    this.currentStep = 1;
+    this.isEditingProfile = true; // Marcar que se está editando el perfil
+    console.log('🎮 TrainerProfile - Editando perfil desde paso 3, isEditingProfile:', this.isEditingProfile);
+    // Mostrar loading antes de navegar al paso 1
+    this.showLoaderAndGoToStep(1);
+  }
+
+  onEditPokemon(): void {
+    console.log('🎮 TrainerProfile - Editando Pokémon desde paso 3');
+    // Mostrar loading antes de navegar al paso 2
+    this.showLoaderAndGoToStep(2);
   }
 
   // Helper methods
   showLoaderAndNextStep() {
+    console.log('🔄 TrainerProfile - Mostrando loading y avanzando al siguiente paso...');
     this.isLoading = true;
     setTimeout(() => {
       this.isLoading = false;
       this.currentStep++;
+      console.log('✅ TrainerProfile - Loading completado, paso actual:', this.currentStep);
+    }, 1500);
+  }
+
+  showLoaderAndGoToStep(step: number) {
+    console.log('🔄 TrainerProfile - Mostrando loading y navegando al paso:', step);
+    this.isLoading = true;
+    setTimeout(() => {
+      this.isLoading = false;
+      this.currentStep = step;
+      console.log('✅ TrainerProfile - Loading completado, paso actual:', this.currentStep);
     }, 1500);
   }
 

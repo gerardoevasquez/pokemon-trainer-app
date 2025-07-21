@@ -19,7 +19,7 @@ export interface LoadingConfig {
 })
 export class LoadingScreenComponent {
   @Input() config: LoadingConfig = {
-    message: 'Cargando...',
+    message: 'Cargando',
     showLogo: true,
     showProgress: false,
     progressValue: 0,

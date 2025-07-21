@@ -16,7 +16,7 @@
   &__input {
     flex: 1;
     height: 100%;
-    padding: 8px 40px 8px 36px; // Más padding a la izquierda para el icono
+    padding: 8px 34px 8px 36px; // Reducir padding derecho para los iconos
     border: 1px solid #e5e7eb; // Borde gris claro como en el diseño
     border-radius: $border-radius-md;
     background-color: #fafafa; // Fondo muy claro, casi blanco
@@ -62,6 +62,7 @@
     justify-content: center;
     transition: color $transition-normal;
     z-index: 1;
+    padding: 0; // Resetear el padding por defecto del botón
     
     &:hover {
       color: #01426A; // Mantener azul en hover
@@ -95,6 +96,7 @@
     justify-content: center;
     transition: color $transition-normal;
     z-index: 1;
+    padding: 0; // Resetear el padding por defecto del botón
     
     &:hover {
       color: #01426A;

@@ -6,9 +6,9 @@
       <button 
         mat-button 
         class="trainer-summary__edit-button"
-        (click)="onEditProfile()">
+        (click)="onEditPokemon()">
         <mat-icon>edit</mat-icon>
-        Editor
+        Editar Pokémon
       </button>
     </div>
     
@@ -19,7 +19,6 @@
         [spaceBetween]="20"
         [pagination]="true"
         [navigation]="true"
-        [loop]="true"
         class="trainer-summary__swiper">
         
         <swiper-slide 
@@ -38,7 +37,11 @@
               </div>
               
               <div class="pokemon-card__info">
-                <h3 class="pokemon-card__name">{{ pokemon.name | titlecase }}</h3>
+                <h3 class="pokemon-card__name">
+                  {{ pokemon.name | titlecase }}
+                  <!-- Shiny Indicator -->
+                  <mat-icon class="shiny-icon" *ngIf="isPokemonShiny(pokemon)">star</mat-icon>
+                </h3>
                 <p class="pokemon-card__types">
                   {{ getPokemonTypes(pokemon).join('/') | titlecase }}
                 </p>
@@ -50,7 +53,7 @@
               <div class="pokemon-card__stats">
                 <div 
                   class="stat-item"
-                  *ngFor="let stat of pokemon.stats">
+                  *ngFor="let stat of pokemon.stats; let i = index">
                   
                   <div class="stat-header">
                     <span class="stat-name">{{ getStatName(stat.stat.name) }}</span>
@@ -63,6 +66,20 @@
                       [style.width.%]="getStatPercentage(stat.stat.name, stat.base_stat)"
                       [style.background-color]="getStatColor(stat.stat.name)">
                     </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Moves Section -->
+              <div class="pokemon-card__moves">
+                <h4 class="moves-title">Ataques</h4>
+                <div class="moves-list">
+                  <div 
+                    class="move-item"
+                    *ngFor="let move of getPokemonMoves(pokemon)"
+                    [style.background-color]="getMoveTypeColor(move)"
+                    [class]="'move-item--' + getMoveType(move)">
+                    {{ move }}
                   </div>
                 </div>
               </div>

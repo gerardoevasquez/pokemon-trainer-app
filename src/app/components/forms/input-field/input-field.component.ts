@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { DuiFormatDirective } from '../../../shared/directives/dui-format.directive';
+import { TextOnlyDirective } from '../../../shared/directives/text-only.directive';
+import { NumberOnlyDirective } from '../../../shared/directives/number-only.directive';
 
 @Component({
   selector: 'app-input-field',
@@ -11,7 +14,10 @@ import { MatInputModule } from '@angular/material/input';
     CommonModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    DuiFormatDirective,
+    TextOnlyDirective,
+    NumberOnlyDirective
   ],
   templateUrl: './input-field.component.html',
   styleUrls: ['./input-field.component.scss'],
@@ -32,6 +38,9 @@ export class InputFieldComponent implements ControlValueAccessor, OnInit {
   @Input() errorMessage: string = '';
   @Input() hint: string = '';
   @Input() maxLength?: number;
+  @Input() enableDuiFormat: boolean = false;
+  @Input() textOnly: boolean = false;
+  @Input() numberOnly: boolean = false;
 
   formControl = new FormControl('');
   touched: boolean = false;

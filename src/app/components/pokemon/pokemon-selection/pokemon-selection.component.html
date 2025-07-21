@@ -4,7 +4,7 @@
   <div class="pokemon-selection__header">
     <h2 class="pokemon-selection__title">Pokémon</h2>
     <p class="pokemon-selection__subtitle">
-      Selecciona 3 Pokémon para que sean parte de tu equipo
+      {{ isEditing ? 'Edita tu equipo de Pokémon' : 'Selecciona 3 Pokémon para que sean parte de tu equipo' }}
     </p>
   </div>
   
@@ -32,7 +32,7 @@
     <app-primary-button
       [disabled]="!canSave"
       (click)="onSaveTeam()">
-      Guardar
+      {{ saveButtonText }}
     </app-primary-button>
   </div>
   

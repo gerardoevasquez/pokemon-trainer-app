@@ -32,12 +32,24 @@ export type ProfileMode = 'upload' | 'display' | 'final';
 export class ProfileImageUploaderComponent {
   @Input() profileData?: ProfileData;
   @Input() mode: ProfileMode = 'upload'; // 'upload' | 'display' | 'final'
+  @Input() currentStep: number = 1; // Paso actual (1, 2, 3)
   @Output() imageUploaded = new EventEmitter<File>();
   @Output() imageRemoved = new EventEmitter<void>();
   @ViewChild('fileInput') fileInput!: ElementRef;
 
   selectedImage: string | null = null;
   selectedFile: File | null = null;
+  hasError: boolean = false;
+  errorMessage: string = '';
+
+  // Tipos de imagen válidos
+  private readonly VALID_IMAGE_TYPES = [
+    'image/jpeg',
+    'image/jpg', 
+    'image/png',
+    'image/gif',
+    'image/webp'
+  ];
 
   // Getters para determinar el comportamiento
   get isUploadMode(): boolean {
@@ -71,14 +83,61 @@ export class ProfileImageUploaderComponent {
   onFileSelected(event: any) {
     const file = event.target.files[0];
     if (file) {
-      this.selectedFile = file;
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.selectedImage = e.target.result;
-      };
-      reader.readAsDataURL(file);
-      this.imageUploaded.emit(file);
+      // Validar si es un archivo de imagen válido
+      if (this.isValidImageFile(file)) {
+        this.selectedFile = file;
+        this.hasError = false;
+        this.errorMessage = '';
+        
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          this.selectedImage = e.target.result;
+        };
+        reader.readAsDataURL(file);
+        this.imageUploaded.emit(file);
+      } else {
+        // Archivo no válido
+        this.hasError = true;
+        this.errorMessage = 'Por favor adjunta un archivo con formato PNG, JPG, GIF o WEBP';
+        this.selectedFile = null;
+        this.selectedImage = null;
+        
+        // Limpiar el input
+        if (this.fileInput) {
+          this.fileInput.nativeElement.value = '';
+        }
+        
+        // Emitir evento de error
+        this.imageRemoved.emit();
+      }
     }
+  }
+
+  /**
+   * Valida si el archivo es una imagen válida
+   */
+  private isValidImageFile(file: File): boolean {
+    // Verificar tipo MIME
+    if (!this.VALID_IMAGE_TYPES.includes(file.type)) {
+      return false;
+    }
+    
+    // Verificar extensión del archivo
+    const fileName = file.name.toLowerCase();
+    const validExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp'];
+    const hasValidExtension = validExtensions.some(ext => fileName.endsWith(ext));
+    
+    if (!hasValidExtension) {
+      return false;
+    }
+    
+    // Verificar tamaño (máximo 5MB)
+    const maxSize = 5 * 1024 * 1024; // 5MB
+    if (file.size > maxSize) {
+      return false;
+    }
+    
+    return true;
   }
 
   hasImage(): boolean {
@@ -88,6 +147,8 @@ export class ProfileImageUploaderComponent {
   removeImage() {
     this.selectedImage = null;
     this.selectedFile = null;
+    this.hasError = false;
+    this.errorMessage = '';
     this.imageRemoved.emit();
     if (this.fileInput) {
       this.fileInput.nativeElement.value = '';
@@ -115,6 +176,48 @@ export class ProfileImageUploaderComponent {
 
   getDocumentType(): string {
     return this.getAge() >= 18 ? 'DUI' : 'Carnet de Minoridad';
+  }
+
+  shouldShowDocument(): boolean {
+    return !!(this.profileData?.document && 
+              this.profileData.document !== null && 
+              this.profileData.document !== undefined && 
+              this.profileData.document.trim() !== '');
+  }
+
+  // Métodos para contenido dinámico según el paso
+  getStepTitle(): string {
+    switch (this.currentStep) {
+      case 1:
+        return 'Imagen perfil';
+      case 2:
+        return this.profileData?.name || 'Entrenador';
+      case 3:
+        return 'Entrenador';
+      default:
+        return 'Imagen perfil';
+    }
+  }
+
+  getStepSubtitle(): string {
+    switch (this.currentStep) {
+      case 1:
+        return 'Sube una foto para tu perfil';
+      case 2:
+        return ''; // No subtitle in step 2
+      case 3:
+        return ''; // No subtitle in step 3
+      default:
+        return 'Sube una foto para tu perfil';
+    }
+  }
+
+  shouldShowProfileInfo(): boolean {
+    return this.currentStep >= 2 && !!this.profileData;
+  }
+
+  shouldShowAchievementBadge(): boolean {
+    return this.currentStep === 3; // Only in step 3
   }
 
   getFileName(): string {

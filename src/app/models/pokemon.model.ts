@@ -7,6 +7,7 @@ export interface Pokemon {
   types: PokemonType[];
   stats: PokemonStat[];
   abilities: PokemonAbility[];
+  moves: PokemonMove[];
   base_experience: number;
 }
 
@@ -61,6 +62,24 @@ export interface PokemonAbility {
   };
   is_hidden: boolean;
   slot: number;
+}
+
+export interface PokemonMove {
+  move: {
+    name: string;
+    url: string;
+  };
+  version_group_details: {
+    level_learned_at: number;
+    move_learn_method: {
+      name: string;
+      url: string;
+    };
+    version_group: {
+      name: string;
+      url: string;
+    };
+  }[];
 }
 
 export interface PokemonListItem {

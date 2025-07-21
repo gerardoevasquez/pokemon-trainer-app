@@ -26,6 +26,7 @@ import { PokemonService } from '../../../services/pokemon.service';
 })
 export class PokemonSelectionComponent implements OnInit {
   @Input() profileData?: ProfileData;
+  @Input() selectedTeam: Pokemon[] = [];
   @Output() teamSelected = new EventEmitter<Pokemon[]>();
 
   pokemonList: PokemonListItem[] = [];
@@ -38,6 +39,23 @@ export class PokemonSelectionComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadPokemon();
+    this.initializeSelectedPokemon();
+  }
+
+  private initializeSelectedPokemon(): void {
+    if (this.selectedTeam && this.selectedTeam.length > 0) {
+      // Copiar los Pokémon ya seleccionados
+      this.selectedPokemon = [...this.selectedTeam];
+      
+      // Marcar los Pokémon shiny como seleccionados en el cache
+      this.selectedTeam.forEach(pokemon => {
+        if (this.pokemonService.isPokemonShinyInCache(pokemon.id)) {
+          this.pokemonService.markPokemonAsSelectedShiny(pokemon.id);
+        }
+      });
+      
+      console.log('🎮 PokemonSelection - Pokémon ya seleccionados inicializados:', this.selectedPokemon.length);
+    }
   }
 
   loadPokemon(): void {
@@ -106,8 +124,16 @@ export class PokemonSelectionComponent implements OnInit {
         // Cargar los datos completos del Pokémon
         this.pokemonService.getPokemonById(pokemonId).subscribe({
           next: (pokemon) => {
+            // Verificar si el Pokémon es shiny
+            const isShiny = this.pokemonService.isPokemonShinyInCache(pokemonId);
+            
+            // Si es shiny, marcarlo como seleccionado shiny (lock)
+            if (isShiny) {
+              this.pokemonService.markPokemonAsSelectedShiny(pokemonId);
+            }
+            
             this.selectedPokemon.push(pokemon);
-            console.log('✅ PokemonSelection - Pokémon agregado:', pokemon.name, 'total seleccionados:', this.selectedPokemon.length);
+            console.log('✅ PokemonSelection - Pokémon agregado:', pokemon.name, 'Es Shiny:', isShiny, 'total seleccionados:', this.selectedPokemon.length);
           },
           error: (error) => {
             console.error('Error loading Pokémon details:', error);
@@ -148,7 +174,30 @@ export class PokemonSelectionComponent implements OnInit {
     return this.selectedPokemon.length === 3;
   }
 
+  get isEditing(): boolean {
+    return this.selectedTeam && this.selectedTeam.length > 0;
+  }
+
+  get saveButtonText(): string {
+    return this.isEditing ? 'Guardar Cambios' : 'Guardar Equipo';
+  }
+
   get selectedCount(): number {
     return this.selectedPokemon.length;
+  }
+
+  /**
+   * Clear shiny cache (useful for testing or when starting over)
+   */
+  clearShinyCache(): void {
+    this.pokemonService.clearAllCaches();
+    console.log('🧹 PokemonSelection - Todos los caches limpiados');
+  }
+
+  /**
+   * Show shiny statistics (for debugging)
+   */
+  showShinyStatistics(): void {
+    this.pokemonService.logShinyStatistics();
   }
 } 

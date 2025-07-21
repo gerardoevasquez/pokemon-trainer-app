@@ -21,14 +21,14 @@
     
     <!-- Loading Message con animación de puntos -->
     <div class="loading-screen__message" *ngIf="config.message">
-      <h2 class="loading-screen__text">
-        Cargando
+      <span class="loading-screen__text">
+        {{ config.message }}
         <span class="loading-screen__dots">
           <span class="loading-screen__dot">.</span>
           <span class="loading-screen__dot">.</span>
           <span class="loading-screen__dot">.</span>
         </span>
-      </h2>
+      </span>
     </div>
     
   </div>

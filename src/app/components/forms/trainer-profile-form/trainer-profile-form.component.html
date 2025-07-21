@@ -17,22 +17,42 @@
     <app-input-field
     formControlName="name"
     label="Nombre"
-    placeholder="Ingresa tu nombre completo"
-    [required]="true">
+    [required]="true"
+    [textOnly]="true">
   </app-input-field>
   
   <!-- Hobby Field -->
-  <app-input-field
-    formControlName="hobby"
-    label="Pasatiempo favorito"
-    placeholder="Ej: Jugar Fútbol">
-  </app-input-field>
+  <mat-form-field class="trainer-profile-form__hobby-field" appearance="outline" [floatLabel]="selectedHobbies.length > 0 ? 'always' : 'auto'">
+    <mat-label>Pasatiempo favorito</mat-label>
+    <mat-chip-grid #chipList aria-label="Lista de pasatiempos">
+      <mat-chip *ngFor="let hobby of selectedHobbies" [selectable]="true" [removable]="true" (removed)="removeHobby(hobby)">
+        {{ hobby }}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+      <input
+        #hobbyInputRef
+        [placeholder]="''"
+        [formControl]="hobbyInput"
+        [matAutocomplete]="auto"
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="[13,188]"
+        (matChipInputTokenEnd)="addHobby(hobbyInput.value || '', hobbyInputRef)"
+        (input)="onInputChange($event)"
+        (keydown.enter)="$event.preventDefault()"
+        [disabled]="selectedHobbies.length > 0"
+      />
+    </mat-chip-grid>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onHobbySelected($event, hobbyInputRef)">
+      <mat-option *ngFor="let hobby of filteredHobbies" [value]="hobby">
+        {{ hobby }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
   
   <!-- Birthday Field -->
   <app-date-picker-field
     formControlName="birthday"
     label="Cumpleaños"
-    placeholder="Selecciona tu fecha de nacimiento"
     [required]="true"
     [maxDate]="maxDate"
     (ageChanged)="onAgeChanged($event)">
@@ -42,10 +62,10 @@
   <app-input-field
     formControlName="document"
     [label]="getDocumentLabel()"
-    [placeholder]="getDocumentPlaceholder()"
-    [required]="true"
+    [required]="isAdult"
     [maxLength]="getDocumentMaxLength()"
-    [disabled]="!hasValidBirthday">
+    [enableDuiFormat]="isAdult"
+    [numberOnly]="!isAdult">
   </app-input-field>
   </div>
   
