@@ -1,132 +1,174 @@
-# Pokemon Trainer App - Prueba Técnica Frontend
+# Pokémon Trainer App
 
-Aplicación Angular para crear y gestionar perfiles de entrenadores Pokémon, consumiendo la PokeAPI.
+A modern Angular application that allows users to create a Pokémon trainer profile, select their team of Pokémon, and view detailed statistics using the PokeAPI.
 
-## 🎯 Funcionalidades
+## 🎯 Features
 
-- **Perfil de Entrenador**: Configuración con foto, nombre, pasatiempo, fecha de nacimiento y documento de identidad
-- **Selección de Equipo**: Lista de Pokémon de primera generación con filtros y selección de 3 Pokémon
-- **Perfil del Entrenador**: Visualización de datos y equipo seleccionado
-- **Edición**: Modificación de perfil y equipo Pokémon
-- **Validaciones**: Formularios con validaciones específicas según edad
+### Core Features
+- **Trainer Profile Creation**: Upload profile image, enter personal information with form validation
+- **Pokémon Selection**: Browse and select 3 Pokémon from the first generation (151 Pokémon)
+- **Trainer Summary**: View complete profile with selected Pokémon team and detailed stats
+- **Form Validation**: Required fields validation with proper error handling
+- **Responsive Design**: Mobile-first approach with modern UI/UX
 
-## 🚀 Instalación y Ejecución
+### Bonus Features
+- **Virtual Scroll**: Angular Material CDK for efficient Pokémon list rendering
+- **Swiper Integration**: Interactive carousel for viewing Pokémon statistics
+- **API Integration**: Full integration with PokeAPI for Pokémon data
+- **Error Handling**: Comprehensive error management and loading states
 
-### Prerrequisitos
-- Node.js (versión 18 o superior)
-- npm o yarn
-- Angular CLI
+## 🚀 Getting Started
 
-### Instalación
+### Prerequisites
+- Node.js (version 18 or higher)
+- npm or yarn package manager
+- Angular CLI (version 17 or higher)
 
-1. **Clonar el repositorio**
-```bash
-git clone <url-del-repositorio>
-cd gerardo-vasquez-prueba-tecnica
-```
+### Installation
 
-2. **Instalar dependencias**
-```bash
-npm install
-```
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/gerardoevasquez/pokemon-trainer-app.git
+   cd pokemon-trainer-app
+   ```
 
-3. **Ejecutar en modo desarrollo**
-```bash
-ng serve
-```
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-4. **Abrir en el navegador**
-```
-http://localhost:4200
-```
+3. **Start the development server**
+   ```bash
+   npm start
+   ```
 
-### Scripts disponibles
+4. **Open your browser**
+   Navigate to `http://localhost:4200` to view the application
 
-- `npm start` - Ejecuta la aplicación en modo desarrollo
-- `npm run build` - Construye la aplicación para producción
-- `npm test` - Ejecuta las pruebas unitarias
-- `npm run lint` - Ejecuta el linter
-
-## 🏗️ Estructura del Proyecto
+## 📋 Project Structure
 
 ```
 src/
 ├── app/
-│   ├── components/          # Componentes reutilizables
-│   ├── pages/              # Páginas principales
-│   ├── services/           # Servicios para API y lógica de negocio
-│   ├── models/             # Interfaces y tipos TypeScript
-│   ├── shared/             # Componentes y utilidades compartidas
-│   └── utils/              # Utilidades y helpers
-├── assets/                 # Imágenes, iconos y recursos estáticos
-└── styles/                 # Estilos globales y variables CSS
+│   ├── components/
+│   │   ├── forms/                    # Form components
+│   │   │   ├── trainer-profile-form/ # Main trainer form
+│   │   │   ├── search-bar/           # Pokémon search functionality
+│   │   │   └── primary-button/       # Reusable button component
+│   │   ├── pokemon/                  # Pokémon-related components
+│   │   │   ├── pokemon-card/         # Individual Pokémon card
+│   │   │   ├── pokemon-grid/         # Pokémon selection grid
+│   │   │   └── pokemon-selection/    # Pokémon selection logic
+│   │   ├── profile/                  # Profile components
+│   │   │   └── profile-image-uploader/ # Image upload functionality
+│   │   └── trainer/                  # Trainer components
+│   │       └── trainer-summary/      # Trainer profile display
+│   ├── models/                       # TypeScript interfaces
+│   ├── services/                     # API services and utilities
+│   ├── pages/                        # Main application pages
+│   └── shared/                       # Shared modules and utilities
+├── assets/                           # Static assets
+└── styles/                           # Global styles and variables
 ```
 
-## 🎨 Diseño
+## 🎨 Design Implementation
 
-El diseño sigue las especificaciones del archivo Figma proporcionado:
-- [Figma Design](https://www.figma.com/file/hYCiD7uLE5ICSZLxrYJqZ3/Pokemon-Trainer?node-id=0%3A1)
+The application follows the provided Figma design specifications:
+- **Color Scheme**: Pokémon brand colors (#01426A, #FFC600, #F2F2F2)
+- **Typography**: Modern, readable fonts with proper hierarchy
+- **Layout**: Responsive grid system with proper spacing
+- **Components**: Reusable components following BEM methodology
+- **Animations**: Smooth transitions and hover effects
 
-## 🔌 API
+## 🔧 Technical Stack
 
-La aplicación consume la PokeAPI:
-- **Base URL**: https://pokeapi.co/
-- **Documentación**: https://pokeapi.co/docs/v2
+- **Framework**: Angular 17 (Standalone Components)
+- **Language**: TypeScript
+- **Styling**: SCSS with CSS Variables
+- **UI Library**: Angular Material
+- **Virtual Scroll**: Angular CDK Scrolling
+- **Carousel**: Swiper.js
+- **API**: PokeAPI (https://pokeapi.co/)
+- **Build Tool**: Angular CLI
 
-### Endpoints principales utilizados:
-- `/api/v2/pokemon/` - Lista de Pokémon
-- `/api/v2/pokemon/{id}/` - Detalles de Pokémon específico
+## 📱 Features Breakdown
 
-## 🧪 Testing
+### 1. Trainer Profile Configuration
+- **Required Fields**: Name (*), Birth Date (*), DUI (*) for adults
+- **Optional Fields**: Hobby, Profile Image
+- **Validation**: 
+  - DUI format validation with auto-completion
+  - Age-based document requirement logic
+  - Image upload with preview
 
+### 2. Pokémon Team Selection
+- **First Generation**: All 151 Pokémon from the original games
+- **Selection Limit**: Maximum 3 Pokémon per team
+- **Search Functionality**: Filter by ID or name
+- **Visual Feedback**: Selected state with yellow background
+- **Virtual Scroll**: Efficient rendering for large lists
+
+### 3. Trainer Profile Display
+- **Profile Information**: Complete trainer details
+- **Pokémon Team**: Selected Pokémon with detailed stats
+- **Statistics Display**: Progress bars for all Pokémon stats
+- **Edit Functionality**: Modify profile and team selections
+- **Swiper Integration**: Interactive carousel for Pokémon viewing
+
+## 🎯 API Integration
+
+### PokeAPI Endpoints Used
+- `GET /pokemon` - List of all Pokémon
+- `GET /pokemon/{id}` - Individual Pokémon details
+- **Sprite Images**: `sprites.other.home.front_default`
+
+### Error Handling
+- Network error management
+- Loading states for all API calls
+- Fallback images for failed loads
+- User-friendly error messages
+
+## 🚀 Deployment
+
+### Development
 ```bash
-# Ejecutar todas las pruebas
-npm test
-
-# Ejecutar pruebas con coverage
-npm run test:coverage
+npm start
 ```
 
-## 🐳 Docker
-
-Para ejecutar con Docker:
-
+### Production Build
 ```bash
-# Construir imagen
-docker build -t pokemon-trainer .
-
-# Ejecutar contenedor
-docker run -p 4200:4200 pokemon-trainer
+npm run build
 ```
 
-## 📦 Despliegue
+### Build Output
+The build artifacts will be stored in the `dist/` directory.
 
-### Google Cloud Platform
+## 📝 Code Quality
 
-1. **Configurar Google Cloud CLI**
-2. **Construir para producción**
-```bash
-npm run build:prod
-```
-3. **Desplegar en Cloud Run o App Engine**
+- **TypeScript**: Strict type checking enabled
+- **ESLint**: Code linting and formatting
+- **Angular Standards**: Following Angular style guide
+- **Component Architecture**: Standalone components with proper separation of concerns
+- **Service Pattern**: Centralized data management
+- **Error Boundaries**: Comprehensive error handling
 
-## 🔧 Tecnologías Utilizadas
+## 🤝 Contributing
 
-- **Framework**: Angular 20
-- **Lenguaje**: TypeScript
-- **Estilos**: SCSS
-- **Testing**: Jasmine + Karma
-- **Linting**: ESLint
-- **Package Manager**: npm
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-## 📝 Notas de Desarrollo
+## 📄 License
 
-- Todos los comentarios y commits están en inglés
-- Se sigue Git Flow para el versionamiento
-- Validaciones específicas para DUI y carnet de minoridad según edad
-- Implementación de virtual scroll para optimización de rendimiento
-- Uso de Swiper para carruseles de Pokémon
+This project is created for technical assessment purposes.
 
-## 👨‍💻 Autor
+## 👨‍💻 Author
 
-Gerardo Vasquez - Prueba Técnica Frontend Developer
+**Gerardo Vasquez**
+- GitHub: [@gerardoevasquez](https://github.com/gerardoevasquez)
+
+---
+
+*Built with ❤️ using Angular and the PokeAPI*
