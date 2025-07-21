@@ -67,7 +67,7 @@ export class DatePickerFieldComponent implements ControlValueAccessor {
   }
 
   onDateChange(date: Date | null): void {
-    console.log('Fecha seleccionada:', date);
+
     this.value = date;
     this.onChange(date);
     this.onTouched();
@@ -93,15 +93,6 @@ export class DatePickerFieldComponent implements ControlValueAccessor {
     }
     
     const isAdult = actualAge >= this.ageThreshold;
-    console.log('Cálculo de edad:', {
-      birthDate,
-      today,
-      age,
-      monthDiff,
-      actualAge,
-      isAdult,
-      ageThreshold: this.ageThreshold
-    });
     
     this.ageChanged.emit({ isAdult, age: actualAge });
   }

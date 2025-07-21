@@ -239,14 +239,14 @@ export class PokemonService {
     
     // Si el Pokémon ya fue seleccionado como shiny, mantenerlo shiny
     if (this.selectedShinyCache[pokemonId]) {
-      console.log(`🔒 PokemonService - Pokémon ${pokemonId} (${pokemon.name}): Usando sprite shiny (LOCKED)`);
+  
       return this.getPokemonShinySprite(pokemon);
     }
     
     // Si ya se determinó si es shiny antes, usar el cache
     if (this.shinyCache.hasOwnProperty(pokemonId)) {
       const isShiny = this.shinyCache[pokemonId];
-      console.log(`📋 PokemonService - Pokémon ${pokemonId} (${pokemon.name}): Cache encontrado - Es Shiny: ${isShiny}`);
+
       return isShiny ? 
         this.getPokemonShinySprite(pokemon) : 
         this.getPokemonNormalSprite(pokemon);
@@ -259,7 +259,7 @@ export class PokemonService {
     // Contar cuántos Pokémon están lockeados como shiny
     const lockedCount = Object.values(this.selectedShinyCache).filter(Boolean).length;
     
-    console.log(`🎲 PokemonService - Pokémon ${pokemonId} (${pokemon.name}): Nueva probabilidad - Es Shiny: ${isShiny} (3/90 chance) | Pokémon lockeados: ${lockedCount}`);
+    
     
     if (isShiny) {
       return this.getPokemonShinySprite(pokemon);
@@ -273,7 +273,7 @@ export class PokemonService {
    */
   markPokemonAsSelectedShiny(pokemonId: number): void {
     this.selectedShinyCache[pokemonId] = true;
-    console.log(`🔒 PokemonService - Pokémon ${pokemonId} marcado como shiny seleccionado`);
+
   }
 
   /**
@@ -296,7 +296,7 @@ export class PokemonService {
   clearShinyCache(): void {
     this.shinyCache = {};
     this.selectedShinyCache = {};
-    console.log('🧹 PokemonService - Cache de shiny limpiado');
+
   }
 
   /**
@@ -306,7 +306,7 @@ export class PokemonService {
     this.shinyCache = {};
     this.selectedShinyCache = {};
     this.movesCache = {};
-    console.log('🧹 PokemonService - Todos los caches limpiados');
+
   }
 
   /**
@@ -332,18 +332,14 @@ export class PokemonService {
     const shinyPercentage = debugInfo.totalCached > 0 ? 
       ((debugInfo.shinyCount / debugInfo.totalCached) * 100).toFixed(2) : '0';
     
-    console.log('📊 PokemonService - Estadísticas de Shiny:');
-    console.log(`   Total Pokémon vistos: ${debugInfo.totalCached}`);
-    console.log(`   Pokémon shiny encontrados: ${debugInfo.shinyCount}`);
-    console.log(`   Pokémon shiny seleccionados (LOCKED): ${debugInfo.selectedShinyCount}`);
-    console.log(`   Porcentaje de shiny: ${shinyPercentage}% (esperado: ~1.11%)`);
+
     
     if (debugInfo.shinyCount > 0) {
       const shinyIds = Object.keys(this.shinyCache)
         .filter(id => this.shinyCache[parseInt(id)])
         .map(id => parseInt(id))
         .sort((a, b) => a - b);
-      console.log(`   IDs de Pokémon shiny: ${shinyIds.join(', ')}`);
+
     }
     
     if (debugInfo.selectedShinyCount > 0) {
@@ -351,10 +347,7 @@ export class PokemonService {
         .filter(id => this.selectedShinyCache[parseInt(id)])
         .map(id => parseInt(id))
         .sort((a, b) => a - b);
-      console.log(`   IDs de Pokémon LOCKED: ${lockedIds.join(', ')}`);
     }
-    
-    console.log('💡 Nota: Cada Pokémon mantiene su probabilidad independiente de 1/90');
   }
 
   /**
@@ -459,7 +452,7 @@ export class PokemonService {
     // Cachear los ataques
     this.movesCache[pokemonId] = randomMoves;
     
-    console.log(`⚔️ PokemonService - Ataques aleatorios para ${pokemon.name}: ${randomMoves.join(', ')}`);
+
     
     // Log de información de tipos para cada ataque
     randomMoves.forEach(move => {
@@ -484,7 +477,7 @@ export class PokemonService {
    */
   clearMovesCache(): void {
     this.movesCache = {};
-    console.log('🧹 PokemonService - Cache de ataques limpiado');
+
   }
 
   /**
@@ -529,6 +522,6 @@ export class PokemonService {
   logMoveTypeInfo(moveName: string): void {
     const moveType = this.getMoveType(moveName);
     const moveColor = this.getMoveTypeColor(moveName);
-    console.log(`⚔️ PokemonService - Ataque: "${moveName}" | Tipo: ${moveType} | Color: ${moveColor}`);
+
   }
 } 

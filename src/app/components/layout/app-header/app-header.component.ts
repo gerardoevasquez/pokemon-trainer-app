@@ -44,7 +44,7 @@ export class AppHeaderComponent {
    */
   onUserMenuOpen(): void {
     // TODO: Implement user menu logic
-    console.log('User menu opened');
+
   }
   
   /**
@@ -59,7 +59,7 @@ export class AppHeaderComponent {
    */
   onSearchClick(): void {
     // TODO: Implement search functionality
-    console.log('Search clicked');
+
   }
   
   /**
@@ -67,6 +67,6 @@ export class AppHeaderComponent {
    */
   onUserMenuItemSelect(action: string): void {
     // TODO: Implement user menu actions
-    console.log('User menu action:', action);
+
   }
 } 

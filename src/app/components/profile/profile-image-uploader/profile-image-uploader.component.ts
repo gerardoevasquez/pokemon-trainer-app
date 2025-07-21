@@ -66,13 +66,13 @@ export class ProfileImageUploaderComponent {
 
   get showUploadButton(): boolean {
     const result = this.isUploadMode && !this.hasImage();
-    console.log('showUploadButton:', result, 'isUploadMode:', this.isUploadMode, 'hasImage:', this.hasImage());
+
     return result;
   }
 
   get showImagePreview(): boolean {
     const result = this.hasImage();
-    console.log('showImagePreview:', result, 'selectedImage:', this.selectedImage, 'profileData.imageUrl:', this.profileData?.imageUrl);
+
     return result;
   }
 
@@ -222,16 +222,16 @@ export class ProfileImageUploaderComponent {
 
   getFileName(): string {
     if (this.selectedFile) {
-      console.log('Selected file name:', this.selectedFile.name);
+  
       return this.selectedFile.name;
     }
     if (this.profileData?.imageUrl) {
       const urlParts = this.profileData.imageUrl.split('/');
       const fileName = urlParts[urlParts.length - 1] || 'Imagen de perfil';
-      console.log('Profile image URL name:', fileName);
+  
       return fileName;
     }
-    console.log('No file name found, returning default');
+
     return 'Imagen de perfil';
   }
 

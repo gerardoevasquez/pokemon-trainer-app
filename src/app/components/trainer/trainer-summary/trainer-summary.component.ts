@@ -33,14 +33,12 @@ export class TrainerSummaryComponent implements OnInit {
 
   ngOnInit(): void {
     // Asegurar que Swiper esté registrado
-    console.log('TrainerSummaryComponent initialized');
-    console.log('Selected team:', this.selectedTeam);
-    console.log('Profile data:', this.profileData);
+
   }
 
   ngOnChanges(changes: any): void {
     if (changes['selectedTeam']) {
-      console.log('Selected team changed:', this.selectedTeam);
+  
     }
   }
 

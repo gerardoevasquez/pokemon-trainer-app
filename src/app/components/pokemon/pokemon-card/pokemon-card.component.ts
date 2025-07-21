@@ -45,12 +45,12 @@ export class PokemonCardComponent implements OnInit {
     // Extraer ID de la URL: https://pokeapi.co/api/v2/pokemon/1/
     const urlParts = this.pokemon.url.split('/');
     this.pokemonId = parseInt(urlParts[urlParts.length - 2]);
-    console.log('🎴 PokemonCard - ID extraído:', this.pokemonId, 'para:', this.pokemon.name);
+
   }
 
   private loadPokemonDetails(): void {
     this.isLoadingDetails = true;
-    console.log('🎴 PokemonCard - Cargando detalles para ID:', this.pokemonId, 'nombre:', this.pokemon.name, 'URL:', this.pokemon.url);
+
     this.pokemonService.getPokemonById(this.pokemonId).subscribe({
       next: (pokemon) => {
         this.pokemonDetails = pokemon;
@@ -61,8 +61,7 @@ export class PokemonCardComponent implements OnInit {
                       this.pokemonService.isPokemonSelectedAsShiny(pokemon.id);
         
         this.isLoadingDetails = false;
-        console.log('🎴 PokemonCard - Detalles cargados:', pokemon.name, 'ID:', pokemon.id, 'Imagen:', this.imageUrl, 'Es Shiny:', this.isShiny, 'para tarjeta:', this.pokemon.name);
-        console.log('🎴 PokemonCard - Sprites disponibles:', pokemon.sprites);
+        
       },
       error: (error) => {
         console.error('Error loading Pokemon details:', error);
@@ -73,7 +72,7 @@ export class PokemonCardComponent implements OnInit {
   }
 
   onCardClick(): void {
-    console.log('🎴 PokemonCard - clicked:', this.pokemon.name, 'disabled:', this.isDisabled, 'isSelected:', this.isSelected);
+
     if (!this.isDisabled) {
       if (this.isSelected) {
         this.pokemonDeselected.emit(this.pokemon);
@@ -81,7 +80,7 @@ export class PokemonCardComponent implements OnInit {
         this.pokemonSelected.emit(this.pokemon);
       }
     } else {
-      console.log('🎴 PokemonCard - Card is disabled, click ignored');
+  
     }
   }
 

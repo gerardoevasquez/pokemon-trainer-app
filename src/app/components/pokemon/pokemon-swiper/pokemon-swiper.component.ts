@@ -53,7 +53,7 @@ export class PokemonSwiperComponent implements OnInit, OnDestroy {
   };
 
   ngOnInit(): void {
-    console.log('🎠 PokemonSwiper - ngOnInit:', this.pokemonList.length);
+
   }
 
   ngOnDestroy(): void {
@@ -73,12 +73,12 @@ export class PokemonSwiperComponent implements OnInit, OnDestroy {
   }
 
   onPokemonSelected(pokemonItem: PokemonListItem): void {
-    console.log('🎠 PokemonSwiper - onPokemonSelected:', pokemonItem);
+
     this.pokemonSelected.emit(pokemonItem);
   }
 
   onPokemonDeselected(pokemonItem: PokemonListItem): void {
-    console.log('🎠 PokemonSwiper - onPokemonDeselected:', pokemonItem);
+
     this.pokemonDeselected.emit(pokemonItem);
   }
 

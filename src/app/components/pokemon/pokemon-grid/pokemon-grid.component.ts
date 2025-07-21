@@ -28,13 +28,12 @@ export class PokemonGridComponent implements OnInit, OnDestroy, OnChanges {
   @Output() pokemonDeselected = new EventEmitter<PokemonListItem>();
 
   ngOnInit(): void {
-    console.log('🎮 PokemonGrid - ngOnInit:', this.pokemonList.length);
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['pokemonList'] && this.pokemonList) {
-      console.log('🎴 PokemonGrid - Lista actualizada:', this.pokemonList.length, 'Pokémon');
-      console.log('🎴 PokemonGrid - Primeros 3 Pokémon:', this.pokemonList.slice(0, 3).map(p => ({ name: p.name, url: p.url })));
+      
     }
   }
 
@@ -51,12 +50,12 @@ export class PokemonGridComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   onPokemonSelected(pokemon: PokemonListItem): void {
-    console.log('🎮 PokemonGrid - onPokemonSelected:', pokemon);
+
     this.pokemonSelected.emit(pokemon);
   }
 
   onPokemonDeselected(pokemon: PokemonListItem): void {
-    console.log('🎮 PokemonGrid - onPokemonDeselected:', pokemon);
+
     this.pokemonDeselected.emit(pokemon);
   }
 
@@ -76,8 +75,7 @@ export class PokemonGridComponent implements OnInit, OnDestroy, OnChanges {
     for (let i = 0; i < this.pokemonList.length; i += 3) {
       rows.push(this.pokemonList.slice(i, i + 3));
     }
-    console.log('🎴 PokemonGrid - Filas creadas:', rows.length, 'filas');
-    console.log('🎴 PokemonGrid - Primera fila:', rows[0]?.map(p => p.name));
+
     return rows;
   }
 

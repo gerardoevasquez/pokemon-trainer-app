@@ -86,10 +86,10 @@ export class TrainerProfileFormComponent implements OnInit {
 
     // Rellenar formulario con datos existentes si están disponibles
     if (this.existingProfileData) {
-      console.log('Datos existentes recibidos:', this.existingProfileData);
+  
       this.fillFormWithExistingData();
     } else {
-      console.log('No hay datos existentes para rellenar');
+  
     }
   }
 
@@ -107,7 +107,7 @@ export class TrainerProfileFormComponent implements OnInit {
   }
 
   private fillFormWithExistingData() {
-    console.log('Rellenando formulario con datos existentes:', this.existingProfileData);
+
     
     // Rellenar nombre
     if (this.existingProfileData.name) {
@@ -138,7 +138,7 @@ export class TrainerProfileFormComponent implements OnInit {
       this.hasValidBirthday = true;
       this.isAdult = isAdult;
       
-      console.log('Edad calculada:', calculatedAge, 'Es adulto:', isAdult);
+  
       
       // Habilitar y configurar el campo documento
       const documentControl = this.trainerForm.get('document');
@@ -151,13 +151,13 @@ export class TrainerProfileFormComponent implements OnInit {
           Validators.required,
           Validators.pattern(/^\d{8}-\d{1}$/)
         ]);
-        console.log('Configurando validadores para DUI (adulto) - OBLIGATORIO');
+
       } else {
         // Carnet de minoridad: 8 dígitos (NO OBLIGATORIO)
         documentControl?.setValidators([
           Validators.pattern(/^\d{8}$/)
         ]);
-        console.log('Configurando validadores para Carnet de Minoridad (menor) - NO OBLIGATORIO');
+
       }
       documentControl?.updateValueAndValidity();
       
@@ -170,10 +170,9 @@ export class TrainerProfileFormComponent implements OnInit {
         
         // Rellenar documento DESPUÉS de que se configuren los validadores
         if (this.existingProfileData.document) {
-          console.log('Estableciendo documento después de onAgeChanged:', this.existingProfileData.document);
+
           documentControl?.setValue(this.existingProfileData.document);
-          console.log('Documento establecido, valor actual:', documentControl?.value);
-          console.log('Documento válido:', documentControl?.valid);
+
         }
       }, 100);
     }
@@ -236,19 +235,18 @@ export class TrainerProfileFormComponent implements OnInit {
         hasValidBirthday: this.hasValidBirthday
       };
       
-      console.log('Enviando datos del formulario:', formData);
+
       this.formSubmitted.emit(formData);
     }
   }
   
   onAgeChanged(event: { isAdult: boolean; age: number }) {
-    console.log('Edad calculada:', event);
-    console.log('Estado anterior - hasValidBirthday:', this.hasValidBirthday, 'isAdult:', this.isAdult);
+
     
     this.hasValidBirthday = true;
     this.isAdult = event.isAdult;
 
-    console.log('Estado actualizado - hasValidBirthday:', this.hasValidBirthday, 'isAdult:', this.isAdult);
+
     
     const documentControl = this.trainerForm.get('document');
     
@@ -268,20 +266,20 @@ export class TrainerProfileFormComponent implements OnInit {
           Validators.required,
           Validators.pattern(/^\d{8}-\d{1}$/)
         ]);
-        console.log('Configurando validadores para DUI (adulto) - OBLIGATORIO');
+    
       } else {
         // Carnet de minoridad: 8 dígitos (NO OBLIGATORIO)
         documentControl?.setValidators([
           Validators.pattern(/^\d{8}$/)
         ]);
-        console.log('Configurando validadores para Carnet de Minoridad (menor) - NO OBLIGATORIO');
+    
       }
       documentControl?.updateValueAndValidity();
     } else {
       // Deshabilitar el campo documento
       documentControl?.disable();
       documentControl?.setValue('');
-      console.log('Deshabilitando campo documento - no hay fecha válida');
+  
     }
   }
   
@@ -318,17 +316,6 @@ export class TrainerProfileFormComponent implements OnInit {
     }
     
     const isValid = nameValid && hobbyValid && birthdayValid && documentValid;
-    
-    console.log('Form validation debug:', {
-      nameValid,
-      hobbyValid,
-      birthdayValid,
-      documentValid,
-      hasValidBirthday: this.hasValidBirthday,
-      isAdult: this.isAdult,
-      selectedHobbies: this.selectedHobbies,
-      isValid
-    });
     
     return isValid;
   }

@@ -27,8 +27,8 @@ export class TextOnlyDirective {
     
     if (allowedKeys.includes(event.key)) return;
     
-    // Solo letras (sin espacios ni acentos)
-    if (!/^[a-zA-Z]$/.test(event.key)) {
+    // Solo letras y espacios (sin acentos)
+    if (!/^[a-zA-Z\s]$/.test(event.key)) {
       event.preventDefault();
     }
   }
@@ -40,8 +40,8 @@ export class TextOnlyDirective {
     event.preventDefault();
     const pastedText = event.clipboardData?.getData('text/plain') || '';
     
-    // Solo letras (sin espacios ni acentos)
-    const cleanText = pastedText.replace(/[^a-zA-Z]/g, '');
+    // Solo letras y espacios (sin acentos)
+    const cleanText = pastedText.replace(/[^a-zA-Z\s]/g, '');
     document.execCommand('insertText', false, cleanText);
   }
 } 

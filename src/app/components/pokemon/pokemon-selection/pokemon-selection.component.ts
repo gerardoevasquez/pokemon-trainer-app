@@ -54,27 +54,21 @@ export class PokemonSelectionComponent implements OnInit {
         }
       });
       
-      console.log('🎮 PokemonSelection - Pokémon ya seleccionados inicializados:', this.selectedPokemon.length);
+  
     }
   }
 
   loadPokemon(): void {
     this.isLoading = true;
-    console.log(' Iniciando carga de Pokémon...');
+
     
     this.pokemonService.getPokemonList().subscribe({
       next: (pokemonList) => {
-        console.log('✅ Pokémon cargados:', pokemonList.length);
-        console.log('🔍 Primeros 9 Pokémon (orden exacto):');
-        pokemonList.slice(0, 9).forEach((pokemon, index) => {
-          const id = pokemon.url.split('/').slice(-2)[0];
-          console.log(`  ${index + 1}. #${id.padStart(3, '0')} ${pokemon.name}`);
-        });
-        console.log('🎮 Virtual scroll activado:', pokemonList.length > 9 ? 'SÍ' : 'NO');
+        
         this.pokemonList = pokemonList;
         this.filteredPokemon = [...this.pokemonList];
         this.isLoading = false;
-        console.log(' filteredPokemon:', this.filteredPokemon.length);
+    
       },
       error: (error) => {
         console.error('❌ Error loading Pokémon:', error);
@@ -91,12 +85,7 @@ export class PokemonSelectionComponent implements OnInit {
   filterPokemon(): void {
     if (!this.searchTerm.trim()) {
       this.filteredPokemon = [...this.pokemonList];
-      console.log('🎮 PokemonSelection - filterPokemon: Mostrando todos los Pokémon:', this.filteredPokemon.length);
-      console.log('🎮 PokemonSelection - Primeros 12 Pokémon en filteredPokemon:');
-      this.filteredPokemon.slice(0, 12).forEach((pokemon, index) => {
-        const id = pokemon.url.split('/').slice(-2)[0];
-        console.log(`  ${index + 1}. #${id.padStart(3, '0')} ${pokemon.name}`);
-      });
+      
       return;
     }
 
@@ -105,7 +94,7 @@ export class PokemonSelectionComponent implements OnInit {
       pokemon.name.toLowerCase().includes(term) ||
       this.extractPokemonId(pokemon.url).toString().includes(term)
     );
-    console.log('🎮 PokemonSelection - filterPokemon: Búsqueda "' + this.searchTerm + '" - Resultados:', this.filteredPokemon.length);
+
   }
 
   onPokemonSelected(pokemonItem: PokemonListItem): void {
@@ -113,7 +102,7 @@ export class PokemonSelectionComponent implements OnInit {
     const pokemonId = this.extractPokemonId(pokemonItem.url);
     const isSelected = this.selectedPokemon.some(p => p.id === pokemonId);
     
-    console.log('🎯 PokemonSelection - onPokemonSelected:', pokemonItem.name, 'ID:', pokemonId, 'isSelected:', isSelected, 'selectedCount:', this.selectedPokemon.length);
+
     
     if (isSelected) {
       // Remover si ya está seleccionado
@@ -133,14 +122,14 @@ export class PokemonSelectionComponent implements OnInit {
             }
             
             this.selectedPokemon.push(pokemon);
-            console.log('✅ PokemonSelection - Pokémon agregado:', pokemon.name, 'Es Shiny:', isShiny, 'total seleccionados:', this.selectedPokemon.length);
+        
           },
           error: (error) => {
             console.error('Error loading Pokémon details:', error);
           }
         });
       } else {
-        console.log('❌ PokemonSelection - No se puede agregar más Pokémon, límite alcanzado');
+    
       }
     }
   }
@@ -191,7 +180,7 @@ export class PokemonSelectionComponent implements OnInit {
    */
   clearShinyCache(): void {
     this.pokemonService.clearAllCaches();
-    console.log('🧹 PokemonSelection - Todos los caches limpiados');
+
   }
 
   /**

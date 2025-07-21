@@ -17,6 +17,6 @@ export class App {
 
   onLoadingComplete(): void {
     // Manejar cuando se completa el loading
-    console.log('Loading completado');
+
   }
 }
