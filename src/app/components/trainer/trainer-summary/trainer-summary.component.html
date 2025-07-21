@@ -15,8 +15,11 @@
     <!-- Pokemon Team with Swiper -->
     <div class="trainer-summary__team-container">
       <swiper-container 
+        [slidesPerView]="1"
+        [spaceBetween]="20"
         [navigation]="true"
         [loop]="true"
+        [direction]="'vertical'"
         class="trainer-summary__swiper">
         
         <swiper-slide 

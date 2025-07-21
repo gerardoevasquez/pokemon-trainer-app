@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, Input, Output, EventEmitter, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -23,12 +23,17 @@ register();
   templateUrl: './trainer-summary.component.html',
   styleUrls: ['./trainer-summary.component.scss']
 })
-export class TrainerSummaryComponent {
+export class TrainerSummaryComponent implements OnInit {
   @Input() profileData?: ProfileData;
   @Input() selectedTeam: Pokemon[] = [];
   @Output() editProfile = new EventEmitter<void>();
 
   constructor(private pokemonService: PokemonService) {}
+
+  ngOnInit(): void {
+    // Asegurar que Swiper esté registrado
+    console.log('TrainerSummaryComponent initialized');
+  }
 
   getMaxHeight(): number {
     // Altura del componente izquierdo (600px) - altura del header - padding
